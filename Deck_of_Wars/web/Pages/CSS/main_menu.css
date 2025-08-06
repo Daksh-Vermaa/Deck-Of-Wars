@@ -86,8 +86,8 @@ body::after {
 .title-power {
   color: #8dcfef;
   text-shadow: 4px 4px 0px #32a0d4,
-    /* 8px 8px 0px #69c2eeb7, */ /* 12px 12px 0px #6f6fe4, */ 12px 12px 1px
-      rgba(0, 0, 0, 1);
+    /* 8px 8px 0px #69c2eeb7, */ /* 12px 12px 0px #6f6fe4, */
+     12px 12px 1px rgba(0, 0, 0, 1);
   background: linear-gradient(45deg, #0000ff, #4169e1, #1e90ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,8 +99,8 @@ body::after {
 .title-clash {
   color: #d54237;
   text-shadow: 4px 4px 0px #e75d51,
-    /* 8px 8px 0px #DC143C, */ /* 12px 12px 0px #B22222, 16px */ 12px 12px 1px
-      rgba(0, 0, 0, 1);
+    /* 8px 8px 0px #DC143C, */ /* 12px 12px 0px #B22222, 16px */ 
+    12px 12px 1px rgba(0, 0, 0, 1);
   background: linear-gradient(45deg, #dd3c3c, #e4413b, #dc143c);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
