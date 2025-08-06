@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Power Clash - Main Menu</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="game-title">
+        <span class="title-power">POWER</span>
+        <span class="title-clash">CLASH</span>
+      </h1>
+
+      <div class="menu-container">
+        <button class="comic-button btn-create" onclick="createTeam()">
+          <i class="fas fa-users"></i> Create a Team
+        </button>
+
+        <button class="comic-button btn-join" onclick="joinTeam()">
+          <i class="fas fa-hand-rock"></i> Join a Team
+        </button>
+
+        <button class="comic-button btn-settings" onclick="openSettings()">
+          <i class="fas fa-cog"></i> Settings
+        </button>
+
+        <button
+          class="comic-button btn-achievements"
+          onclick="showAchievements()"
+        >
+          <i class="fas fa-trophy"></i> Achievements
+        </button>
+      </div>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel">
+      <h2>SETTINGS</h2>
+      <div class="volume-control">
+        <label for="volumeSlider">Volume:</label>
+        <input
+          type="range"
+          id="volumeSlider"
+          class="volume-slider"
+          min="0"
+          max="100"
+          value="50"
+        />
+        <span id="volumeValue">50%</span>
+      </div>
+      <button class="close-btn" onclick="closeSettings()">Close</button>
+    </div>
+    <script>
+      src = "script.js";
+    </script>
+  </body>
+</html>
