@@ -14,7 +14,7 @@ class Player(models.Model):
     No_of_achievements = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.Name + ' ' + '(' + self.Rank + ')'    
+        return f"{self.Name}"
     
     def matches_update(self):
         pass
@@ -34,22 +34,23 @@ class GameSession(models.Model):
     Player_joined = models.TextField(default='[]')
     is_active = models.BooleanField(default=True)
     def __str__(self):
-        return self.name + ' ' + self.code
+        return f"{self.name.username} - {self.code}"
     
     def add_player(self , username):
         data = json.loads(self.Player_joined)
-        if username in data and len(self.Player_joined) < self.num_players:
-            data.append(username)
+        if username not in data and len(data) < self.num_players:
+            self.Player_joined = json.dumps(data)
             self.save()
             return True
         return False
     
     def get_players(self):
-        return json.loads(self.Player_joined)
+        player_data = json.loads(self.Player_joined)
+        return player_data
     
-    def if_full(self , request):
-        if len(self.Player_joined) == self.num_players:
-            return render(request , 'pass')
+    # def if_full(self , request):
+    #     if len(self.Player_joined) == self.num_players:
+    #         return render(request , 'pass')
     
 
 

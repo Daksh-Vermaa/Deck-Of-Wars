@@ -99,6 +99,9 @@ def join_a_team(request):
 
 def create_code():
     code = secrets.token_urlsafe(6)[:6].upper()
+
+    while GameSession.objects.filter(code=code).exists():
+        code = secrets.token_urlsafe(6)[:6].upper()
     return code
 
 def Game_setup(request):
@@ -112,8 +115,9 @@ def Game_setup(request):
             game_session = GameSession.objects.create(
                 code = create_code(),
                 num_players = num_players,
-                mode = mode,
-                name = request.user 
+                mode = mode, 
+                name = request.user,
+                Player_joined = json.dumps([request.user.username])
             )
             return redirect(f'/loading/?players={game_session.num_players}&mode={game_session.mode}&code={game_session.code}')
         else:
@@ -131,13 +135,14 @@ def loading_page(request):
     if code :
         try :
             game_session = GameSession.objects.get(num_players=num_players , mode=mode , code=code  , is_active=True)
-            return render(request , 'web/loading.html' , {'title' : 'loading',
-                                            'num_players' : game_session.num_players,
-                                            'mode' : game_session.mode,
-                                            'code': game_session.code,
-                                            'players_joined' : game_session.get_players(),
-                                            'NO' : len(game_session.get_players())}
-                                            )
+            return render(request , 'web/loading.html' , {
+                            'title' : 'loading',
+                            'num_players' : game_session.num_players,
+                            'mode' : game_session.mode,
+                            'code': game_session.code,
+                            'players_joined' : game_session.get_players(),
+                            'NO' : len(game_session.get_players())
+                        })
 
         except GameSession.DoesNotExist:
             messages.error(request , 'code incorrect')
