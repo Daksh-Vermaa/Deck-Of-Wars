@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+import json
 
 class Player(models.Model):
     # user = models.OneToOneField(User , on_delete=models.CASCADE)
@@ -24,3 +26,30 @@ class Player(models.Model):
         pass
 
     
+class GameSession(models.Model):
+    name = models.ForeignKey(User , on_delete=models.CASCADE)
+    code = models.CharField(blank=False , max_length=8 , unique=True , primary_key=True)
+    mode = models.CharField(max_length=10 , blank=False )   
+    num_players = models.IntegerField()
+    Player_joined = models.TextField(default='[]')
+    is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.name + ' ' + self.code
+    
+    def add_player(self , username):
+        data = json.loads(self.Player_joined)
+        if username in data and len(self.Player_joined) < self.num_players:
+            data.append(username)
+            self.save()
+            return True
+        return False
+    
+    def get_players(self):
+        return json.loads(self.Player_joined)
+    
+    def if_full(self , request):
+        if len(self.Player_joined) == self.num_players:
+            return render(request , 'pass')
+    
+
+

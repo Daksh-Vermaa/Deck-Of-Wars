@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login , logout
 from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
+from .models import GameSession
 from .forms import GameSetup
 import secrets
+import json
 
 
 def main_menu(request):
@@ -68,7 +70,6 @@ def guest_login(request):
     auth_login(request , user)
     return redirect('Menu')
 
-
 @login_required
 def Logout(request):
     user =  User.objects.filter(username__startswith="guest_")
@@ -78,6 +79,7 @@ def Logout(request):
     logout(request)
     messages.success(request , f'logged out succesfully')
     return redirect('Menu')
+
 
 def create_a_team(request):
     if not request.user.is_authenticated:
@@ -106,9 +108,14 @@ def Game_setup(request):
 
             num_players = form.cleaned_data['num_players'] 
             mode = form.cleaned_data['mode'] 
-            code = create_code()
 
-            return redirect(f'/loading/?players={num_players}&mode={mode}&code={code}')
+            game_session = GameSession.objects.create(
+                code = create_code(),
+                num_players = num_players,
+                mode = mode,
+                name = request.user 
+            )
+            return redirect(f'/loading/?players={game_session.num_players}&mode={game_session.mode}&code={game_session.code}')
         else:
             messages.error(request, 'Form validation failed')
     else:
@@ -119,11 +126,24 @@ def Game_setup(request):
 def loading_page(request):
     num_players = request.GET.get('players')
     mode = request.GET.get('mode')
-    global code 
-    return render(request , 'web/loading.html' , {'title' : 'loading',
-                                                  'num_players' : num_players,
-                                                  'mode' : mode,
-                                                  'code': code } )
+    code = request.GET.get('code')
+
+    if code :
+        try :
+            game_session = GameSession.objects.get(num_players=num_players , mode=mode , code=code  , is_active=True)
+            return render(request , 'web/loading.html' , {'title' : 'loading',
+                                            'num_players' : game_session.num_players,
+                                            'mode' : game_session.mode,
+                                            'code': game_session.code,
+                                            'players_joined' : game_session.get_players(),
+                                            'NO' : len(game_session.get_players())}
+                                            )
+
+        except GameSession.DoesNotExist:
+            messages.error(request , 'code incorrect')
+
+    else :
+        messages.error(request , 'failed to create code')
 
 def enter_code(request):
     if request.method == 'POST':
