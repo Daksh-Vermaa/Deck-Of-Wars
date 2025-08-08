@@ -1,4 +1,4 @@
-# Deck of Wars
+# Deck of Wars (work in progress)
 
 **Deck of Wars** is an online multiplayer action card game that brings the fun of old-school card battles to the web.  
 It features a **Python backend** and a **HTML/CSS/JavaScript frontend** to deliver fast gameplay, interactive visuals, and a competitive experience.
