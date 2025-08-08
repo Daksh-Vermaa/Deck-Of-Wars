@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login , logout
 from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
-from .models import GameSession
+from .models import GameSession , Player
 from .forms import GameSetup
 import secrets
 import json
@@ -80,22 +80,12 @@ def Logout(request):
     messages.success(request , f'logged out succesfully')
     return redirect('Menu')
 
+# def Player_profile(request):
+#     if request.method == 'POST':
+#         pp = Player.objects.create(
+            
+#         )
 
-def create_a_team(request):
-    if not request.user.is_authenticated:
-        messages.error(request , f'login first')
-        return redirect('Login')
-    return render(request , 'web/lobbyp.html' ,
-                   {'title' : 'Primary_Lobby'}
-                )
-
-def join_a_team(request):
-    if not request.user.is_authenticated:
-        messages.error(request , f'login first')
-        return redirect('Login')
-    return render(request , 'web/lobbys.html' ,
-                   {'title' : 'Secondaary_Lobby'}
-                )
 
 def create_code():
     code = secrets.token_urlsafe(6)[:6].upper()
@@ -128,8 +118,6 @@ def Game_setup(request):
                                                 'title': 'Game Setup'})
 
 def loading_page(request):
-    # num_players = request.GET.get('players')
-    # mode = request.GET.get('mode')
     code = request.GET.get('code')
 
     if code :
