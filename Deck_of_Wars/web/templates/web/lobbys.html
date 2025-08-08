@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 {% block content %} 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     <h1>Enter Code</h1>
-    <form action="/loading/?players={{num_players}}&mode={{mode}}&code={{code}}">
-        <input type="text" placeholder="Enter your code" required>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="passcode" placeholder="Enter your code" required>
         <button type="submit">Submit</button>
     </form>
 {% endblock content %}

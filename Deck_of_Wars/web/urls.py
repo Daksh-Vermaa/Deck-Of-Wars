@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('' , views.main_menu , name='Menu'),
     path('lobbyp/' , views.Game_setup , name='Create'),
-    path('lobbys/' , views.join_a_team , name='Join'),
+    path('lobbys/' , views.enter_code , name='Join'),
     path('logout/' , views.Logout , name='logout'),
     path('guest/', views.guest_login, name='guest_login'),
     path('register/' ,  views.register , name='register'),

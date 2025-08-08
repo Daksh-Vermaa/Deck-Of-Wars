@@ -119,7 +119,7 @@ def Game_setup(request):
                 name = request.user,
                 Player_joined = json.dumps([request.user.username])
             )
-            return redirect(f'/loading/?players={game_session.num_players}&mode={game_session.mode}&code={game_session.code}')
+            return redirect(f'/loading/?code={game_session.code}')
         else:
             messages.error(request, 'Form validation failed')
     else:
@@ -128,13 +128,13 @@ def Game_setup(request):
                                                 'title': 'Game Setup'})
 
 def loading_page(request):
-    num_players = request.GET.get('players')
-    mode = request.GET.get('mode')
+    # num_players = request.GET.get('players')
+    # mode = request.GET.get('mode')
     code = request.GET.get('code')
 
     if code :
         try :
-            game_session = GameSession.objects.get(num_players=num_players , mode=mode , code=code  , is_active=True)
+            game_session = GameSession.objects.get(code=code  , is_active=True)
             return render(request , 'web/loading.html' , {
                             'title' : 'loading',
                             'num_players' : game_session.num_players,
@@ -146,18 +146,29 @@ def loading_page(request):
 
         except GameSession.DoesNotExist:
             messages.error(request , 'code incorrect')
-
+            return redirect('Menu')
     else :
         messages.error(request , 'failed to create code')
+        return redirect('Menu')
 
 def enter_code(request):
     if request.method == 'POST':
-        global code
-        global num_players
-        global mode
-        
-        passcode = request.POST['passcode']
-        if passcode !=  code:
-            messages.error(request , f'PASSCODE DOES NOT EXIST')
-        else :
-            return redirect(f'/loading/?players={num_players}&mode={mode}&code={code}')
+        passcode = request.POST['passcode'].upper()
+
+        try :
+            game_session = GameSession.objects.get(code=passcode , is_active=True)
+
+            if game_session.add_player(request.user.username):
+                # messages.success(f' {request.user.username} added successfully')
+                return redirect(f'/loading/?code={passcode}')
+            else :
+                if game_session.is_full():
+                    messages.error('lobby is full')
+                    return redirect('Menu')
+                else :
+                    messages.error('already in lobby')
+        except GameSession.DoesNotExist:
+            messages.error(f'code wrong')
+            return redirect('Menu')
+
+    return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})

@@ -39,6 +39,7 @@ class GameSession(models.Model):
     def add_player(self , username):
         data = json.loads(self.Player_joined)
         if username not in data and len(data) < self.num_players:
+            data.append(username)
             self.Player_joined = json.dumps(data)
             self.save()
             return True
@@ -48,9 +49,10 @@ class GameSession(models.Model):
         player_data = json.loads(self.Player_joined)
         return player_data
     
-    # def if_full(self , request):
-    #     if len(self.Player_joined) == self.num_players:
-    #         return render(request , 'pass')
-    
+    def is_full(self):
+        if len(self.get_players()) >= self.num_players:
+            return True
+        else :
+            return False
 
 
