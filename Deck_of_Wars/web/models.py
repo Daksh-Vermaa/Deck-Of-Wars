@@ -4,9 +4,8 @@ from django.shortcuts import render, redirect
 import json
 
 class Player(models.Model):
-    user = models.ForeignKey(User , on_delete=models.CASCADE)
-    Name  = models.CharField(default=user , max_length=20 , blank=True)
-    photo = models.ImageField(blank=True , default='pfp.jpg')
+    Name  = models.CharField(default='player' , max_length=20 , blank=True)
+    photo = models.ImageField(blank=True , default='assets/pfp.png')
     Rank = models.CharField(max_length=20 , default='NOOB')
     No_of_matches_played = models.IntegerField(default=0)
     No_of_matches_won = models.IntegerField(default=0)
@@ -15,19 +14,6 @@ class Player(models.Model):
 
     def __str__(self):
         return f"{self.Name} - {self.Rank}"
-    
-    def Name_change(self):
-        pass
-    
-    def matches_update(self):
-        self.No_of_matches_played += 1
-
-    def Winning_Streak_update(self):
-        pass
-
-    def No_of_matches_won_update(self):
-        self.No_of_matches_won += 1
-
     
 class GameSession(models.Model):
     name = models.ForeignKey(User , on_delete=models.CASCADE)

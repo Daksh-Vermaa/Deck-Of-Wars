@@ -14,7 +14,7 @@ import json
 def main_menu(request):
     return render(request ,
                    'web/home.html' ,
-                     {'title' : 'Main Menu'}
+                     {'title' : 'Main Menu'} 
                     )
 
 def register(request):
@@ -80,12 +80,6 @@ def Logout(request):
     messages.success(request , f'logged out succesfully')
     return redirect('Menu')
 
-# def Player_profile(request):
-#     if request.method == 'POST':
-#         pp = Player.objects.create(
-            
-#         )
-
 
 def create_code():
     code = secrets.token_urlsafe(6)[:6].upper()
@@ -147,16 +141,15 @@ def enter_code(request):
             game_session = GameSession.objects.get(code=passcode , is_active=True)
 
             if game_session.add_player(request.user.username):
-                # messages.success(f' {request.user.username} added successfully')
                 return redirect(f'/loading/?code={passcode}')
             else :
                 if game_session.is_full():
-                    messages.error('lobby is full')
+                    messages.error(request , f'lobby is full')
                     return redirect('Menu')
                 else :
                     messages.error('already in lobby')
         except GameSession.DoesNotExist:
-            messages.error(f'code wrong')
+            messages.error(request ,  f'code wrong')
             return redirect('Menu')
 
     return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})

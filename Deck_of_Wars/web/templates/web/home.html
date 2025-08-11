@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %} 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     {% if user.is_authenticated %}
-        {% if user.username != 'abneeeees' %}
-            Hi {{ user.username }}
-        {% else %}
-            HI admin
-        {%endif%}
-
+        Hi {{ user.username }}
     <a href="{% url 'Join' %}">lobbys</a>
     <a href="{% url 'Create' %}">lobbyp</a>
     <form action="{% url 'logout' %}" method="post">
