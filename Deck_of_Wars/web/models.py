@@ -11,9 +11,13 @@ class Player(models.Model):
     No_of_matches_won = models.IntegerField(default=0)
     winning_streak = models.IntegerField(default=0)
     No_of_achievements = models.IntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.Name} - {self.Rank}"
+        return f'{self.Name}'
+    
+    def __unicode__(self):
+        return self.id()
     
 class GameSession(models.Model):
     name = models.ForeignKey(User , on_delete=models.CASCADE)

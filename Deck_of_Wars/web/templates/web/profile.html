@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}Register{% endblock %}
+{% block title %}Profile{% endblock %}
 {% block content %}
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div>
+            <div class="alert">{{ message }}</div>
         {% endfor %}
     {% endif %}
 
-    {{ profile.Name.username }}
+    <h1>{{ profile.Name.username }}'s Profile</h1>
+    
+    <p><strong>Rank:</strong> {{ profile.Rank }}</p>
+    <p><strong>Matches Played:</strong> {{ profile.No_of_matches_played }}</p>
+    <p><strong>Matches Won:</strong> {{ profile.No_of_matches_won }}</p>
+    <p><strong>Win Streak:</strong> {{ profile.winning_streak }}</p>
+    <p><strong>Achievements:</strong> {{ profile.No_of_achievements }}</p>
+
 
 {% endblock %}

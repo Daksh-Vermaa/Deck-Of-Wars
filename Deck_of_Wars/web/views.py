@@ -155,17 +155,15 @@ def enter_code(request):
     return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})
 
 def player_card(request):
-    try :
-        p_card , created  = Player.objects.get_or_create(Name=request.user)
-        
-        
-        return redirect(request , 'web/profile.html' , {
-                        'title' : 'Profile',
-                        'profile' : p_card ,
-                        'created' : created
-                        }
-                    )
-    except :
-        messages.error(request , f'No player identified')
-        return redirect('Menu')
+    player, created = Player.objects.get_or_create(Name=request.user)
 
+    try:
+        p_card = Player.objects.get(Name=request.user)
+        return render(request, 'web/profile.html', {
+            'title': 'Profile',
+            'profile': player,
+            'created' : created
+        })
+    except Player.DoesNotExist:
+        messages.error(request, 'No player identified')
+        return redirect('Menu')
