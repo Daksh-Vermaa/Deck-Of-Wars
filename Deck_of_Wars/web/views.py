@@ -155,10 +155,9 @@ def enter_code(request):
     return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})
 
 def player_card(request):
-    player, created = Player.objects.get_or_create(Name=request.user)
+    player , created = Player.objects.get_or_create(Name=request.user , is_active=True)
 
     try:
-        p_card = Player.objects.get(Name=request.user)
         return render(request, 'web/profile.html', {
             'title': 'Profile',
             'profile': player,

@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+class Deck(models.Model):
+    deck_data = models.JSONField()
+
