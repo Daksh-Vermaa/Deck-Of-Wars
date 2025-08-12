@@ -10,5 +10,6 @@ urlpatterns = [
     path('guest/', views.guest_login, name='guest_login'),
     path('register/' ,  views.register , name='register'),
     path('login/' ,  views.login , name='login'),
-    path('loading/' , views.loading_page , name='Loading_Page')
+    path('loading/' , views.loading_page , name='Loading_Page'),
+    path('profile/' , views.player_card , name='Profile'),
 ]

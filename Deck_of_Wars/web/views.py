@@ -153,3 +153,19 @@ def enter_code(request):
             return redirect('Menu')
 
     return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})
+
+def player_card(request):
+    try :
+        p_card , created  = Player.objects.get_or_create(Name=request.user)
+        
+        
+        return redirect(request , 'web/profile.html' , {
+                        'title' : 'Profile',
+                        'profile' : p_card ,
+                        'created' : created
+                        }
+                    )
+    except :
+        messages.error(request , f'No player identified')
+        return redirect('Menu')
+

@@ -5,10 +5,15 @@
             <div class="alert alert-info">{{ message }}</div>
         {% endfor %}
     {% endif %}
+
     {% if user.is_authenticated %}
         Hi {{ user.username }}
-    <a href="{% url 'Join' %}">lobbys</a>
-    <a href="{% url 'Create' %}">lobbyp</a>
+
+    <div>
+        <a href="{% url 'Join' %}">lobbys</a>
+        <a href="{% url 'Create' %}">lobbyp</a>
+        <a href="{% url 'Profile' %}">Player Profile</a>
+    </div>
     <form action="{% url 'logout' %}" method="post">
     {% csrf_token %}
     <button type="submit">Log Out</button>

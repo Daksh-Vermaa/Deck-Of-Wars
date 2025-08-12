@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 import json
 
 class Player(models.Model):
-    Name  = models.CharField(default='player' , max_length=20 , blank=True)
+    Name  = models.ForeignKey(User , on_delete=models.CASCADE)
     photo = models.ImageField(blank=True , default='assets/pfp.png')
     Rank = models.CharField(max_length=20 , default='NOOB')
     No_of_matches_played = models.IntegerField(default=0)
