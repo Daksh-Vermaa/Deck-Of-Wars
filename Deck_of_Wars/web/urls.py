@@ -11,4 +11,5 @@ urlpatterns = [
     path('register/' ,  views.register , name='register'),
     path('login/' ,  views.login , name='login'),
     path('loading/' , views.loading_page , name='Loading_Page')
+    
 ]
