@@ -1,8 +1,6 @@
 [
-    {
-        "1":"Ben 10",
-        "2":"DC",
-        "3":"Marvel"
-    }
+    {"name":"Ben 10"},
+    {"name":"DC"},
+    {"name":"Marvel"}
 ]
 

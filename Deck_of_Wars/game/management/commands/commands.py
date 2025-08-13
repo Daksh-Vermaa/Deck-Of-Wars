@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
 from django.core.management.base import BaseCommand
-from game.models import Deck , Card
+from game.models import Deck 
 import json
 import os
+from django.conf import settings
 
 class Command(BaseCommand):
     help = "Show deck data"
@@ -16,8 +15,8 @@ class Command(BaseCommand):
         )
 
     def handle(self , *agrs , **kwargs):
-        path = os.path.join("Deck_of_Wars" , "game" , "data" , "deck.json")
-        with open(path , 'r') as f:
+        path = os.path.join( settings.BASE_DIR ,  "game" , "data", "deck.json")
+        with open(path) as f:
             deck_data = json.load(f)
 
         if kwargs['del']:
