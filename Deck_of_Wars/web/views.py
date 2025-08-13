@@ -5,14 +5,16 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login , logout
 from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
+from .models import GameSession , Player
 from .forms import GameSetup
 import secrets
+import json
 
 
 def main_menu(request):
     return render(request ,
                    'web/home.html' ,
-                     {'title' : 'Main Menu'}
+                     {'title' : 'Main Menu'} 
                     )
 
 def register(request):
@@ -68,7 +70,6 @@ def guest_login(request):
     auth_login(request , user)
     return redirect('Menu')
 
-
 @login_required
 def Logout(request):
     user =  User.objects.filter(username__startswith="guest_")
@@ -79,24 +80,12 @@ def Logout(request):
     messages.success(request , f'logged out succesfully')
     return redirect('Menu')
 
-def create_a_team(request):
-    if not request.user.is_authenticated:
-        messages.error(request , f'login first')
-        return redirect('Login')
-    return render(request , 'web/lobbyp.html' ,
-                   {'title' : 'Primary_Lobby'}
-                )
-
-def join_a_team(request):
-    if not request.user.is_authenticated:
-        messages.error(request , f'login first')
-        return redirect('Login')
-    return render(request , 'web/lobbys.html' ,
-                   {'title' : 'Secondaary_Lobby'}
-                )
 
 def create_code():
     code = secrets.token_urlsafe(6)[:6].upper()
+
+    while GameSession.objects.filter(code=code).exists():
+        code = secrets.token_urlsafe(6)[:6].upper()
     return code
 
 def Game_setup(request):
@@ -106,9 +95,15 @@ def Game_setup(request):
 
             num_players = form.cleaned_data['num_players'] 
             mode = form.cleaned_data['mode'] 
-            code = create_code()
 
-            return redirect(f'/loading/?players={num_players}&mode={mode}&code={code}')
+            game_session = GameSession.objects.create(
+                code = create_code(),
+                num_players = num_players,
+                mode = mode, 
+                name = request.user,
+                Player_joined = json.dumps([request.user.username])
+            )
+            return redirect(f'/loading/?code={game_session.code}')
         else:
             messages.error(request, 'Form validation failed')
     else:
@@ -117,22 +112,60 @@ def Game_setup(request):
                                                 'title': 'Game Setup'})
 
 def loading_page(request):
-    num_players = request.GET.get('players')
-    mode = request.GET.get('mode')
-    global code 
-    return render(request , 'web/loading.html' , {'title' : 'loading',
-                                                  'num_players' : num_players,
-                                                  'mode' : mode,
-                                                  'code': code } )
+    code = request.GET.get('code')
+
+    if code :
+        try :
+            game_session = GameSession.objects.get(code=code  , is_active=True)
+            return render(request , 'web/loading.html' , {
+                            'title' : 'loading',
+                            'num_players' : game_session.num_players,
+                            'mode' : game_session.mode,
+                            'code': game_session.code,
+                            'players_joined' : game_session.get_players(),
+                            'NO' : len(game_session.get_players())
+                        })
+
+        except GameSession.DoesNotExist:
+            messages.error(request , 'code incorrect')
+            return redirect('Menu')
+    else :
+        messages.error(request , 'failed to create code')
+        return redirect('Menu')
 
 def enter_code(request):
     if request.method == 'POST':
-        global code
-        global num_players
-        global mode
+        passcode = request.POST['passcode'].upper()
+
+        try :
+            game_session = GameSession.objects.get(code=passcode , is_active=True)
+
+            if game_session.add_player(request.user.username):
+                return redirect(f'/loading/?code={passcode}')
+            else :
+                if game_session.is_full():
+                    messages.error(request , f'lobby is full')
+                    return redirect('Menu')
+                else :
+                    messages.error('already in lobby')
+        except GameSession.DoesNotExist:
+            messages.error(request ,  f'code wrong')
+            return redirect('Menu')
+
+    return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})
+
+def player_card(request):
+    try :
+        p_card , created  = Player.objects.get_or_create(Name=request.user)
         
-        passcode = request.POST['passcode']
-        if passcode !=  code:
-            messages.error(request , f'PASSCODE DOES NOT EXIST')
-        else :
-            return redirect(f'/loading/?players={num_players}&mode={mode}&code={code}')
+        
+        return redirect(request , 'web/profile.html' , {
+                        'title' : 'Profile',
+                        'profile' : p_card ,
+                        'created' : created
+                        }
+                    )
+    except :
+        messages.error(request , f'No player identified')
+        return redirect('Menu')
+

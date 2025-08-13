@@ -1,0 +1,12 @@
+{% extends 'web/base.html' %} 
+{% block title %}Register{% endblock %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {{ profile.Name.username }}
+
+{% endblock %}

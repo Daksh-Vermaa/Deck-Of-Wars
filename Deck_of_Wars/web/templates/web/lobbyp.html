@@ -1,15 +1,11 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'web/base.html' %} {% block content %}
 <h1>Select Game Setup</h1>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-info">{{ message }}</div>
-    {% endfor %}
-{% endif %}
+{% if messages %} {% for message in messages %}
+<div class="alert alert-info">{{ message }}</div>
+{% endfor %} {% endif %}
 
 <form method="post">
-    {% csrf_token %}
-        {{ form  }}
-    <button type="submit">Continue</button>
+  {% csrf_token %} {{ form }}
+  <button type="submit">Continue</button>
 </form>
 {% endblock %}

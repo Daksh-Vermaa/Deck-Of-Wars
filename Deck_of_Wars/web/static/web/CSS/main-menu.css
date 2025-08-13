@@ -9,7 +9,8 @@
 
 body {
   font-family: "Bangers", cursive;
-  background: url("/Deck_of_Wars/assets/bg3.png") center/cover no-repeat;
+  background: url("/Deck_of_Wars/web/static/web/assets/bg3.png") center/cover
+    no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
   overflow-x: hidden;
