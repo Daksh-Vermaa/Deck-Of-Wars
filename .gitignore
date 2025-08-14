@@ -1,0 +1,6 @@
+/.vscode
+/Deck_of_Wars/Deck_of_Wars/__pycache__
+/Deck_of_Wars/game/__pycache__
+/Deck_of_Wars/web/__pycache__
+/Deck_of_Wars/web/migrations/__pycache__
+/Deck_of_Wars/db.sqlite3
