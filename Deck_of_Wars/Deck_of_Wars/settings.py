@@ -57,7 +57,10 @@ ROOT_URLCONF = 'Deck_of_Wars.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'learning/templates')],
+        'DIRS': [
+            BASE_DIR / 'templates',  # Project-wide templates
+            # Remove or fix the learning/templates path if not needed
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

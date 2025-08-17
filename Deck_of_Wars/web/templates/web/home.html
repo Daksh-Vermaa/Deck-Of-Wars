@@ -1,29 +1,19 @@
-<<<<<<< HEAD
-{% extends 'web/base.html' %} 
-{% load static %} 
-
-{% block extra_css %}
+{% extends 'web/base.html' %} {% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'web/css/main-menu.css' %}" />
-{% endblock %} 
-
-{% block content %}
+{% endblock %} {% block content %}
 <!-- Messages Display -->
-{% if messages %} 
-  {% for message in messages %}
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  {% endfor %} 
-{% endif %} 
-
-{% if user.is_authenticated %}
+{% if messages %} {% for message in messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %} {% endif %} {% if user.is_authenticated %}
 <!-- Authenticated User Section -->
 <div class="container-fluid game-container">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-10 col-lg-8">
+    <div class="col-12">
       <!-- Game Title -->
       <div class="text-center mb-4">
         <h1 class="game-title">
@@ -34,60 +24,28 @@
 
       <!-- Main Menu Buttons -->
       <div class="menu-container mb-4">
-        <div class="row">
-          <div class="col-6 col-md-3 mb-3">
-            <a href="{% url 'Create' %}" class="comic-button btn-create w-100 btn text-decoration-none d-flex flex-column align-items-center justify-content-center">
-              <i class="fas fa-users mb-2"></i>
-              <span>Create a Team</span>
-            </a>
-          </div>
-          <div class="col-6 col-md-3 mb-3">
-            <a href="{% url 'Join' %}" class="comic-button btn-join w-100 btn text-decoration-none d-flex flex-column align-items-center justify-content-center">
-              <i class="fas fa-hand-rock mb-2"></i>
-              <span>Join a Team</span>
-            </a>
-          </div>
-          <div class="col-6 col-md-3 mb-3">
-            <button class="comic-button btn-settings w-100" onclick="openSettings()">
-              <i class="fas fa-cog mb-2"></i><br />
-              <span>Settings</span>
-            </button>
-          </div>
-          <div class="col-6 col-md-3 mb-3">
-            <button class="comic-button btn-achievements w-100" onclick="showAchievements()">
-              <i class="fas fa-trophy mb-2"></i><br />
-              <span>Achievements</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navigation Links -->
-      <div class="navigation-links text-center mb-4">
-        <div class="row">
-          <div class="col-12 col-md-4 mb-2">
-            <a href="{% url 'Join' %}" class="btn btn-outline-primary btn-block comic-nav-button">
-              <i class="fas fa-door-open me-2"></i> Join Lobby
-            </a>
-          </div>
-          <div class="col-12 col-md-4 mb-2">
-            <a href="{% url 'Create' %}" class="btn btn-outline-success btn-block comic-nav-button">
-              <i class="fas fa-plus-circle me-2"></i> Create Lobby
-            </a>
-          </div>
-          <div class="col-12 col-md-4 mb-2">
-            <a href="{% url 'Profile' %}" class="btn btn-outline-info btn-block comic-nav-button">
-              <i class="fas fa-user-circle me-2"></i> Player Profile
-            </a>
-          </div>
-        </div>
+        <a href="{% url 'Create' %}" class="comic-button btn-create">
+          <i class="fas fa-users"></i> Create a Team
+        </a>
+        <a href="{% url 'Join' %}" class="comic-button btn-join">
+          <i class="fas fa-hand-rock"></i> Join a Team
+        </a>
+        <button class="comic-button btn-rules" onclick="openRules()">
+          <i class="fas fa-book"></i> Rules
+        </button>
+        <button
+          class="comic-button btn-achievements"
+          onclick="showAchievements()"
+        >
+          <i class="fas fa-trophy"></i> Achievements
+        </button>
       </div>
 
       <!-- Logout Section -->
       <div class="text-center">
         <form action="{% url 'logout' %}" method="post" class="d-inline">
           {% csrf_token %}
-          <button type="submit" class="btn btn-outline-danger comic-button btn-logout">
+          <button type="submit" class="btn-logout">
             <i class="fas fa-sign-out-alt me-2"></i> Log Out
           </button>
         </form>
@@ -100,7 +58,7 @@
 <!-- Not Authenticated Section -->
 <div class="container-fluid login-container">
   <div class="row justify-content-center align-items-center min-vh-100">
-    <div class="col-12 col-md-8 col-lg-6">
+    <div class="col-12">
       <div class="text-center">
         <!-- Game Title -->
         <h1 class="game-title mb-4">
@@ -115,25 +73,20 @@
 
         <!-- Login Options -->
         <div class="login-options">
-          <div class="row">
-            <div class="col-12 col-md-4 mb-3">
-              <a href="{% url 'login' %}" class="btn btn-primary btn-lg btn-block comic-button btn-login">
-                <i class="fas fa-sign-in-alt mb-2"></i><br />
-                <span>Log In</span>
-              </a>
-            </div>
-            <div class="col-12 col-md-4 mb-3">
-              <a href="{% url 'register' %}" class="btn btn-success btn-lg btn-block comic-button btn-register">
-                <i class="fas fa-user-plus mb-2"></i><br />
-                <span>Register</span>
-              </a>
-            </div>
-            <div class="col-12 col-md-4 mb-3">
-              <a href="{% url 'guest_login' %}" class="btn btn-secondary btn-lg btn-block comic-button btn-guest">
-                <i class="fas fa-user mb-2"></i><br />
-                <span>Play as Guest</span>
-              </a>
-            </div>
+          <div class="menu-container">
+            <a href="{% url 'login' %}" class="comic-button btn-login">
+              <i class="fas fa-sign-in-alt"></i> Log In
+            </a>
+            <a href="{% url 'register' %}" class="comic-button btn-register">
+              <i class="fas fa-user-plus"></i> Register
+            </a>
+            <a
+              href="{% url 'guest_login' %}"
+              class="comic-button btn-guest"
+              style="grid-column: 1 / -1"
+            >
+              <i class="fas fa-user"></i> Play as Guest
+            </a>
           </div>
         </div>
       </div>
@@ -142,95 +95,54 @@
 </div>
 {% endif %}
 
-<!-- Settings Panel (Overlay) -->
-<div class="settings-panel" id="settingsPanel" style="display: none">
-  <div class="settings-content card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h2 class="mb-0"><i class="fas fa-cog me-2"></i> SETTINGS</h2>
-      <button class="btn btn-sm btn-outline-secondary close-btn" onclick="closeSettings()" aria-label="Close">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
+<!-- Rules Panel (Overlay) -->
+<div class="rules-panel" id="rulesPanel" style="display: none">
+  <h2>GAME RULES</h2>
+  <div class="rules-content">
+    <h3>Objective</h3>
+    <p>
+      Form teams and compete in epic power clashes to become the ultimate
+      champions!
+    </p>
 
-    <div class="card-body">
-      <div class="volume-control">
-        <label for="volumeSlider" class="form-label">
-          <i class="fas fa-volume-up me-2"></i> Master Volume:
-        </label>
-        <div class="d-flex align-items-center">
-          <input type="range" id="volumeSlider" class="form-range volume-slider flex-grow-1 me-3" min="0" max="100" value="50" oninput="updateVolume(this.value)" />
-          <span id="volumeValue" class="volume-display badge badge-primary">50%</span>
-        </div>
-      </div>
-    </div>
+    <h3>Team Formation</h3>
+    <ul>
+      <li>Create your own team or join an existing one</li>
+      <li>Teams can have 2-8 players</li>
+      <li>Choose your team name wisely - it represents your power!</li>
+    </ul>
+
+    <h3>Gameplay</h3>
+    <ul>
+      <li>Each player gets unique powers and abilities</li>
+      <li>Work together to defeat opposing teams</li>
+      <li>Strategic thinking and teamwork are key to victory</li>
+      <li>Complete challenges to unlock achievements</li>
+    </ul>
+
+    <h3>Victory Conditions</h3>
+    <p>The first team to complete all objectives wins the power clash!</p>
   </div>
+  <button class="close-btn" onclick="closeRules()">Close</button>
 </div>
 
-<!-- Backdrop for settings panel -->
-<div class="settings-backdrop" id="settingsBackdrop" style="display: none" onclick="closeSettings()"></div>
+<!-- Backdrop for Rules panel -->
+<div
+  class="rules-backdrop"
+  id="rulesBackdrop"
+  style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  "
+  onclick="closeRules()"
+></div>
 
-{% endblock %} 
-
-{% block extra_js %}
-<script src="{% static 'web/js/main-menu.js' %}"></script>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'web/javascript/main-menu.js' %}"></script>
 {% endblock %}
-=======
-{% extends 'base.html' %}
-{% load static %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'Pages/CSS/main_menu.css' %}">
-{% endblock %}
-
-{% block content %}
-{% if user.is_authenticated %}
-<div class="container">
-    <h1 class="game-title">
-        <span class="title-power">POWER</span>
-        <span class="title-clash">CLASH</span>
-    </h1>
-
-    <div class="menu-container">
-        <button class="comic-button btn-create" onclick="createTeam()">
-            <i class="fas fa-users"></i> Create a Team
-        </button>
-        <button class="comic-button btn-join" onclick="joinTeam()">
-            <i class="fas fa-hand-rock"></i> Join a Team
-        </button>
-        <button class="comic-button btn-settings" onclick="openSettings()">
-            <i class="fas fa-cog"></i> Settings
-        </button>
-        <button class="comic-button btn-achievements" onclick="showAchievements()">
-            <i class="fas fa-trophy"></i> Achievements
-        </button>
-    </div>
-</div>
-
-<div class="settings-panel" id="settingsPanel">
-    <h2>SETTINGS</h2>
-    <div class="volume-control">
-        <label for="volumeSlider">Volume:</label>
-        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
-        <span id="volumeValue">50%</span>
-    </div>
-    <button class="close-btn" onclick="closeSettings()">Close</button>
-</div>
-
-<a href="{% url 'Join' %}">lobbys</a>
-<a href="{% url 'Create' %}">lobbyp</a>
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Log Out</button>
-</form>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a>
-<a href="{% url 'register' %}">Register</a>
-<a href="{% url 'guest_login' %}">Guest</a>
-{% endif %}
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'Pages/Javascript/main_menu.js' %}"></script>
-{% endblock %}
->>>>>>> 1344d09d5199577fec14864f704e1c4008cce3ea
