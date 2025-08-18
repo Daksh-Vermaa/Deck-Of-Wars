@@ -1,30 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.core.management.base import BaseCommand
+from web.models import GameSession
 from game.models import Deck , Card
-import json
-import os
 
-class Command(BaseCommand):
-    help = "Show deck data"
+def games(request):
+    return render(request , 'game/game.html')
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--del',
-            action='store_true',
-            help='delete every data'
-        )
-
-    def handle(self , *agrs , **kwargs):
-        path = os.path.join("Deck_of_Wars" , "game" , "data" , "deck.json")
-        with open(path , 'r') as f:
-            deck_data = json.load(f)
-
-        if kwargs['del']:
-            Deck.objects.all().delete()
-
-
-        for data in deck_data:
-            name = data["name"]
-            Deck.objects.update_or_create(name=name)
-
+def select_card(request):
+    name_obj , created = Card.objects.all().order_by('Name')
+    

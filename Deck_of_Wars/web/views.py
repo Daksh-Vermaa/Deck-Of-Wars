@@ -117,14 +117,18 @@ def loading_page(request):
     if code :
         try :
             game_session = GameSession.objects.get(code=code  , is_active=True)
-            return render(request , 'web/loading.html' , {
-                            'title' : 'loading',
-                            'num_players' : game_session.num_players,
-                            'mode' : game_session.mode,
-                            'code': game_session.code,
-                            'players_joined' : game_session.get_players(),
-                            'NO' : len(game_session.get_players())
-                        })
+            if game_session.is_full():
+                return redirect('Game')
+            
+            else :
+                return render(request , 'web/loading.html' , {
+                                'title' : 'loading',
+                                'num_players' : game_session.num_players,
+                                'mode' : game_session.mode,
+                                'code': game_session.code,
+                                'players_joined' : game_session.get_players(),
+                                'NO' : len(game_session.get_players())
+                            })
 
         except GameSession.DoesNotExist:
             messages.error(request , 'code incorrect')

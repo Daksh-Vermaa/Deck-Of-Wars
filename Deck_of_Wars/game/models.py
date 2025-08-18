@@ -1,4 +1,6 @@
 from django.db import models
+import random
+from web.models import GameSession , Player
 
 class Deck(models.Model):
     name = models.CharField(max_length=50, unique=True , default="null")
@@ -22,3 +24,19 @@ class Card(models.Model):
     class Meta:
         ordering = ['deck' , 'Rank']
         unique_together = ['deck' , 'Rank']
+
+# class Game(models.Model):
+#     select_card = models.ForeignKey(Card , choices='Name')
+#     card_to_player1 = models.TextField(default='[]')
+#     card_to_player2 = models.TextField(default='[]')
+#     card_to_player3 = models.TextField(default='[]')
+#     card_to_player4 = models.TextField(default='[]')
+
+#     def card_distribution(self , request):
+#         if request.method == 'POST':
+#             Game_Obj = GameSession(request.POST)
+#             Number_of_players = Game_Obj.num_players
+
+#             if Number_of_players == 2:
+#                 for _ in range(10):
+#                     self.card_to_player1(random.choice())
