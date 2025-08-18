@@ -265,8 +265,8 @@ body::after {
 .rules-panel {
   display: none;
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 7%;
+  left: 30%;
   transform: translate(-50%, -50%);
   background: #ebe3e3;
   border: 12px solid #000;
@@ -280,21 +280,28 @@ body::after {
   scrollbar-width: none;
   -ms-overflow-style: none;
   z-index: 1000;
-  animation: popIn 0.5s ease-out;
+  -webkit-animation: popIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: popIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-@keyframes popIn {
+@-webkit-keyframes popIn {
   0% {
-    transform: translate(-50%, -50%) scale(0.1) rotate(-180deg);
-    opacity: 0;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1) rotate(10deg);
-    opacity: 0.8;
+    -webkit-transform: scaleY(0.4);
+    transform: scaleY(0.4);
   }
   100% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
-    opacity: 1;
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+  }
+}
+@keyframes popIn {
+  0% {
+    -webkit-transform: scaleY(0.4);
+    transform: scaleY(0.4);
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
   }
 }
 

@@ -23,19 +23,15 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.showAchievements = function () {
+    document.getElementById("achievementsPanel").style.display = "block";
+    document.getElementById("rulesBackdrop").style.display = "block";
     showComicAlert("KAPOW! Loading achievements...", "#FFD93D");
-    // Add your achievements logic here
   };
 
-  function showAchievements() {
-    document.getElementById('achievementsPanel').style.display = 'block';
-    document.getElementById('rulesBackdrop').style.display = 'block';
-}
-
-function closeAchievements() {
-    document.getElementById('achievementsPanel').style.display = 'none';
-    document.getElementById('rulesBackdrop').style.display = 'none';
-}
+  window.closeAchievements = function () {
+    document.getElementById("achievementsPanel").style.display = "none";
+    document.getElementById("rulesBackdrop").style.display = "none";
+  };
 
   // Comic-style alert function
   function showComicAlert(message, color) {
