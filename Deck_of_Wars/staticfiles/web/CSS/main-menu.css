@@ -253,6 +253,12 @@ body::after {
   justify-content: center;
   margin: 0 auto;
   max-width: 200px;
+  top: 50px;
+}
+
+.btn-logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px #000;
 }
 
 /* Rules panel */
