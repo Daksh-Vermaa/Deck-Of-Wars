@@ -1,26 +1,130 @@
-{% extends 'web/base.html' %} 
-{% block title %}Login{% endblock %}
-{% block content %}
-        <h2>Login</h2>
-
-        <!-- Show messages -->
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-info">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-
-        <form method="POST">
-            {% csrf_token %}
-            <div>
-                <input type="text" name="username" placeholder="Enter Username" required>
-            </div>
-            <div>
-                <input type="password" name="password" placeholder="Enter Password" required>
-            </div>
-            <button type="submit" >Login</button>
-        </form>
-            Don't have an account? <a href="{% url 'register' %}">Register</a>
+{% extends 'web/base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'web/css/login.css' %}" />
+{% endblock %} {% block content %}
+<!-- Show messages -->
+{% if messages %} {% for message in messages %}
+<div class="alert alert-info">{{ message }}</div>
+{% endfor %} {% endif %}
+<div class="container">
+  <div class="auth-container">
+    <h1 class="auth-title" data-text=""></h1>
+    <!-- Tab buttons -->
+    <div class="tab-container">
+      <button
+        class="tab-button active"
+        onclick="switchTab('signin')"
+        id="signinTab"
+      >
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+      <button class="tab-button" onclick="switchTab('signup')" id="signupTab">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </button>
     </div>
+    <!-- Messages area -->
+    <div id="messageArea"></div>
+    <!-- Loading indicator -->
+    <div class="loading" id="loadingIndicator">Assembling Powers...</div>
+    <!-- Sign In Form -->
+    <div class="form-container" id="signinForm">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="signinEmail">
+            <i class="fas fa-envelope"></i> Hero Email
+          </label>
+          <input
+            type="text"
+            id="signinEmail"
+            name="username"
+            class="form-input"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="signinPassword">
+            <i class="fas fa-lock"></i> Secret Password
+          </label>
+          <input
+            type="password"
+            id="signinPassword"
+            name="password"
+            class="form-input"
+            placeholder="Your superhero secret..."
+            required
+          />
+        </div>
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-bolt"></i> POWER UP!
+        </button>
+      </form>
+      <div class="forgot-link">
+        <a href="#" onclick="forgotPassword()">
+          <i class=""></i>
+        </a>
+      </div>
+    </div>
+    <!-- Sign Up Form -->
+    <div class="form-container" id="signupForm" style="display: none">
+      <form onsubmit="handleSignUp(event)">
+        <div class="form-group">
+          <label for="signupUsername">
+            <i class="fas fa-user"></i> Hero Name
+          </label>
+          <input
+            type="text"
+            id="signupUsername"
+            class="form-input"
+            placeholder="Captain Thunder, Lightning Girl..."
+            required
+            minlength="3"
+          />
+        </div>
+        <div class="form-group">
+          <label for="signupEmail">
+            <i class="fas fa-envelope"></i> Hero Email
+          </label>
+          <input
+            type="email"
+            id="signupEmail"
+            class="form-input"
+            placeholder="hero@powerclash.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="signupPassword">
+            <i class="fas fa-lock"></i> Secret Password
+          </label>
+          <input
+            type="password"
+            id="signupPassword"
+            class="form-input"
+            placeholder="Your superhero secret..."
+            required
+            minlength="6"
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">
+            <i class="fas fa-shield-alt"></i> Confirm Password
+          </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-input"
+            placeholder="Confirm Your superhero secret..."
+            required
+          />
+        </div>
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-rocket"></i> BECOME A HERO!
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'web/javascript/login.js' %}"></script>
 {% endblock %}
