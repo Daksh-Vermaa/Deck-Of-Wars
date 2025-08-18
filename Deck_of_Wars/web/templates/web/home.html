@@ -126,6 +126,39 @@
   <button class="close-btn" onclick="closeRules()">Close</button>
 </div>
 
+<!-- Achievements Panel (Overlay) -->
+<div class="rules-panel" id="achievementsPanel" style="display: none">
+  <h2>ACHIEVEMENTS</h2>
+  <div class="rules-content">
+    <h3>🏆 Team Builder</h3>
+    <p>
+      Created your first team! You're now officially a team captain, cape not
+      included.
+    </p>
+
+    <h3>🎯 Joiner McJoinface</h3>
+    <p>Joined a team! Because nobody likes playing alone, except cats.</p>
+
+    <h3>📚 Rule Reader</h3>
+    <p>Actually read the rules! You're probably the first person to do this.</p>
+
+    <h3>🔥 Hot Streak</h3>
+    <p>
+      Won 3 games in a row! Your opponents are probably questioning their life
+      choices.
+    </p>
+
+    <h3>🐌 Slowpoke Champion</h3>
+    <p>
+      Took more than 5 minutes to make a move. We almost sent a search party!
+    </p>
+
+    <h3>🎪 The Entertainer</h3>
+    <p>Made everyone laugh during a game. Comedy gold right there!</p>
+  </div>
+  <button class="close-btn" onclick="closeAchievements()">Close</button>
+</div>
+
 <!-- Backdrop for Rules panel -->
 <div
   class="rules-backdrop"
@@ -140,7 +173,7 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
   "
-  onclick="closeRules()"
+  onclick="closeRules(); closeAchievements();"
 ></div>
 
 {% endblock %} {% block extra_js %}

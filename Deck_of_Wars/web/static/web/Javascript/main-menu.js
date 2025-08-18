@@ -27,6 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add your achievements logic here
   };
 
+  function showAchievements() {
+    document.getElementById('achievementsPanel').style.display = 'block';
+    document.getElementById('rulesBackdrop').style.display = 'block';
+}
+
+function closeAchievements() {
+    document.getElementById('achievementsPanel').style.display = 'none';
+    document.getElementById('rulesBackdrop').style.display = 'none';
+}
+
   // Comic-style alert function
   function showComicAlert(message, color) {
     const alert = document.createElement("div");
