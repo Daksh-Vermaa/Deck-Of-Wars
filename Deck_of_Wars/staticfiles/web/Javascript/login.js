@@ -47,7 +47,7 @@ function handleSignIn(event) {
 
       // Redirect after success animation
       setTimeout(() => {
-        window.location.href = "index.html"; // Redirect to main game
+        window.location.href = "/home/"; // Redirect to main game
       }, 2000);
     } else {
       showMessage("Invalid credentials! Try again, hero!", "error");
