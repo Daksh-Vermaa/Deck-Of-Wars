@@ -7,20 +7,105 @@
     {% endif %}
 
     {% if user.is_authenticated %}
+        Hi {{ user.username }}
 
     <div>
         <a href="{% url 'Join' %}">lobbys</a>
         <a href="{% url 'Create' %}">lobbyp</a>
         <a href="{% url 'Profile' %}">Player Profile</a>
     </div>
-    <form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Log Out</button>
-    </form>
-    {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a>
-        <a href="{% url 'register' %}">Register</a>
-        <a href="{% url 'guest_login' %}">Guest</a>
-    {% endif %}
-{% endblock content %}
+  </div>
+</div>
+
+{% else %}
+<!-- Not Authenticated Section -->
+<div class="container-fluid login-container">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-12">
+      <div class="text-center">
+        <!-- Game Title -->
+        <h1 class="game-title mb-4">
+          <span class="title-power">POWER</span>
+          <span class="title-clash">CLASH</span>
+        </h1>
+
+        <!-- Welcome Message -->
+        <p class="login-message lead mb-5">
+          Welcome! Please log in to start playing Power Clash.
+        </p>
+
+        <!-- Login Options -->
+        <div class="login-options">
+          <div class="menu-container">
+            <a href="{% url 'login' %}" class="comic-button btn-login">
+              <i class="fas fa-sign-in-alt"></i> Log In
+            </a>
+            <a href="{% url 'register' %}" class="comic-button btn-register">
+              <i class="fas fa-user-plus"></i> Register
+            </a>
+            <a
+              href="{% url 'guest_login' %}"
+              class="comic-button btn-guest"
+              style="grid-column: 1 / -1"
+            >
+              <i class="fas fa-user"></i> Play as Guest
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Rules Panel (Overlay) -->
+<div class="rules-panel" id="rulesPanel" style="display: none">
+  <h2>GAME RULES</h2>
+  <div class="rules-content">
+    <h3>Objective</h3>
+    <p>
+      Form teams and compete in epic power clashes to become the ultimate
+      champions!
+    </p>
+
+    <h3>Team Formation</h3>
+    <ul>
+      <li>Create your own team or join an existing one</li>
+      <li>Teams can have 2-8 players</li>
+      <li>Choose your team name wisely - it represents your power!</li>
+    </ul>
+
+    <h3>Gameplay</h3>
+    <ul>
+      <li>Each player gets unique powers and abilities</li>
+      <li>Work together to defeat opposing teams</li>
+      <li>Strategic thinking and teamwork are key to victory</li>
+      <li>Complete challenges to unlock achievements</li>
+    </ul>
+
+    <h3>Victory Conditions</h3>
+    <p>The first team to complete all objectives wins the power clash!</p>
+  </div>
+  <button class="close-btn" onclick="closeRules()">Close</button>
+</div>
+
+<!-- Backdrop for Rules panel -->
+<div
+  class="rules-backdrop"
+  id="rulesBackdrop"
+  style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  "
+  onclick="closeRules()"
+></div>
+
+{% endblock %} {% block extra_js %}
+<script src="{% static 'web/javascript/main-menu.js' %}"></script>
+{% endblock %}
