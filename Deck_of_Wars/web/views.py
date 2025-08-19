@@ -10,6 +10,12 @@ from .forms import GameSetup
 import secrets
 import json
 
+@login_required
+def main_menu(request):
+    return render(request ,
+                   'web/home.html' ,
+                     {'title' : 'Main Menu'} 
+                    )
 
 def main_menu(request):
     return render(request ,
@@ -44,7 +50,7 @@ def register(request):
                    {'title' : 'register'}
                 )
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']        
@@ -56,6 +62,8 @@ def login(request):
         if user is not None:
             auth_login(request , user)
             return redirect('Menu')
+        else:
+            messages.error(request, 'Invalid username or password')
     
     return render(request , 'web/login.html' ,
                    {'title' : 'login'}
@@ -72,13 +80,14 @@ def guest_login(request):
 
 @login_required
 def Logout(request):
-    user =  User.objects.filter(username__startswith="guest_")
-    if user :
-        user.delete()
-        
-    logout(request)
+    if request.user.username.startswith("guest_"):
+        user_to_delete = request.user
+        logout(request)
+        user_to_delete.delete()
+    else:
+        logout(request)
     messages.success(request , f'logged out succesfully')
-    return redirect('Menu')
+    return redirect('login')
 
 
 def create_code():
@@ -154,12 +163,13 @@ def enter_code(request):
 
     return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})
 
+@login_required
 def player_card(request):
     try :
         p_card , created  = Player.objects.get_or_create(Name=request.user)
         
         
-        return redirect(request , 'web/profile.html' , {
+        return render(request , 'web/profile.html' , {
                         'title' : 'Profile',
                         'profile' : p_card ,
                         'created' : created
