@@ -118,7 +118,7 @@ def loading_page(request):
         try :
             game_session = GameSession.objects.get(code=code  , is_active=True)
             if game_session.is_full():
-                return redirect('Game')
+                return redirect(f'/Game/?code={code}')
             
             else :
                 return render(request , 'web/loading.html' , {

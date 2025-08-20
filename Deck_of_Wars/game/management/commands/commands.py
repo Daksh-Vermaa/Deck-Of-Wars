@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
     def handle(self , *agrs , **kwargs):
         deck_path = os.path.join( settings.BASE_DIR ,  "game" , "data", "deck.json")
-        ben_path = os.path.join( settings.BASE_DIR ,  "game" , "data", "ben_10.json")
+        ben_path = os.path.join( settings.BASE_DIR ,  "game" , "data", "Ben_102.json")
 
         if kwargs['del']:
             Deck.objects.all().delete()
