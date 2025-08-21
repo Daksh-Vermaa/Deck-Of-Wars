@@ -99,29 +99,69 @@
 <div class="rules-panel" id="rulesPanel" style="display: none">
   <h2>GAME RULES</h2>
   <div class="rules-content">
-    <h3>Objective</h3>
+    <h3>Setup</h3>
     <p>
-      Form teams and compete in epic power clashes to become the ultimate
-      champions!
+      <ul>
+        <li>Each deck contains 40 cards → 35 Normal Cards, 5 Power Cards</li>
+        <li>  The game supports 2 to 4 players</li>
+        <li>Each player is dealt 10 cards at the start of the game</li>
+        <li>These may include Power Cards (distribution is random and based on luck)</li>
+      </ul>
     </p>
 
-    <h3>Team Formation</h3>
-    <ul>
-      <li>Create your own team or join an existing one</li>
-      <li>Teams can have 2-8 players</li>
-      <li>Choose your team name wisely - it represents your power!</li>
-    </ul>
+    <h3>Objective</h3>
+    <p>
+      <li>
+        The goal of the game is to collect the most cards by the end of the game
+      </li>
+    </p>
 
     <h3>Gameplay</h3>
+    <h4>Turn Order</h4>
+      <li>The game is played in turns in any rotation</li>
+    <h4>Playing a Card</h4>
+      <li>On their turn, a player chooses one card and selects one stat from it</li>
+      <li>All other players compare the same stat from their cards: <br>
+        For number stats → the highest number wins <br>
+        For Rank stat → the lowest rank wins</li>
+      <li>The winning player takes the other players’ cards.</li>
+    <h4>Special feature</h4>
+        <li>Players may choose to play two normal cards at the same time (Power Cards cannot be used this way)</li>
+        <li>If the chosen stat is Rank: <br>
+        Subtract the ranks <br>
+        The lowest result wins <br>
+        In case of a draw → both cards go to the dump pile</li>
+        <li>If the chosen stat is any other number: <br>
+        Add the numbers <br>
+        The highest result wins <br>
+        In case of a draw → both cards go to the dump pile</li>
+
+
+    <h3>Power Cards</h3>
     <ul>
-      <li>Each player gets unique powers and abilities</li>
-      <li>Work together to defeat opposing teams</li>
-      <li>Strategic thinking and teamwork are key to victory</li>
-      <li>Complete challenges to unlock achievements</li>
+      <li>Power Cards have the highest priority when played</li>
+      <li>If two players play Power Cards at the same time, both cards are wasted, and the other players return their cards to their decks</li>
+      <h4>Power Card Types:</h4>
+      <li>Nullify → Sends one chosen player's card back to the deck</li>
+      <li>Card Revive → Revives one of your cards (chosen randomly by luck). The revived card is placed back into your playing deck</li>
+      <li>Reveal → Reveals all the cards of one chosen player</li>
+      <li>Deck Swap → Swap your entire deck with another player</li>
+      <li>Card Swap → Swap any 2 cards with another player</li>
+      <br>
+      <li>⚠ Note: All Power Cards must be played during the game. This means some Normal Cards may remain unused</li>
     </ul>
 
-    <h3>Victory Conditions</h3>
-    <p>The first team to complete all objectives wins the power clash!</p>
+    <h3>Draw Rules</h3>
+    <ul>
+      <li> If two players tie for a winning stat → each takes 1 card from the other</li>
+      <li>If three or four players tie → the tied cards are shuffled back, and the round is replayed</li>
+    </ul>
+
+    <h3>Victory</h3>
+    <ul>
+      <li>The game continues until all Power Cards have been used</li>
+      <li>The player with the most cards at the end of the game is declared the winner.</li>
+    </ul>
   </div>
   <button class="close-btn" onclick="closeRules()">Close</button>
 </div>

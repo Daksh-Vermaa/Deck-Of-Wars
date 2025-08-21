@@ -267,71 +267,75 @@ body::after {
 .rules-panel {
   display: none;
   position: fixed;
-  top: 25%;
+  top: 5%;
   left: 30%;
   transform: translate(-50%, -50%);
-  /* background: url("/static/web/assets/bg1.png") center/cover no-repeat; */
-  background: #ee5454;
-  background: linear-gradient(
-    314deg,
-    rgba(238, 84, 84, 1) 50%,
-    /* rgba(76, 148, 246, 1) 51%, */ rgba(255, 197, 16, 1) 50%
-  );
+  background: url("/static/web/assets/rules-bg.png") center/cover no-repeat;
   border: 12px solid #000;
   border-radius: 15px;
   -webkit-box-shadow: 17px 15px 8px 3px rgba(0, 0, 0, 1);
   box-shadow: 17px 15px 8px 3px rgba(0, 0, 0, 1);
   padding: 40px;
   max-width: 600px;
-  max-height: 80vh;
+  max-height: 90vh;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   z-index: 1000;
-  -webkit-animation: popIn 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: popIn 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  -webkit-animation: popIn 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) both;
+  animation: popIn 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) both;
 }
 
 @-webkit-keyframes popIn {
   0% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
   }
   100% {
-    -webkit-transform: translateY(-100px);
-    transform: translateY(-100px);
+    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 @keyframes popIn {
   0% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
   }
   100% {
-    -webkit-transform: translateY(-100px);
-    transform: translateY(-100px);
+    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 
 .rules-panel h2 {
-  font-family: "Quantico", cursive;
+  font-family: "Bangers", cursive;
   font-size: 3rem;
   color: #ffffff;
   text-align: center;
   margin-bottom: 30px;
-}
-
-.rules-content {
-  font-family: "Quantico", cursive;
-  font-size: 1.2rem;
-  color: #ffffff;
-  line-height: 1.6;
+  letter-spacing: 5px;
 }
 
 .rules-content h3 {
+  font-family: "bangers", cursive;
   font-size: 1.8rem;
+  margin: 20px 0px 10px -15px;
+  color: #fece02;
+  letter-spacing: 3px;
+}
+.rules-content h4 {
+  font-family: "bangers", cursive;
+  font-size: 1.2rem;
   margin: 20px 0 10px 0;
-  color: #5b4ce9;
+  color: #ffd000;
+  letter-spacing: 3px;
+}
+
+.rules-content {
+  font-family: "Fredoka", cursive;
+  font-size: 1.2rem;
+  color: #ffffff;
+  line-height: 1.6;
 }
 
 .rules-content p {
@@ -345,6 +349,7 @@ body::after {
 
 .rules-content li {
   margin-bottom: 8px;
+  margin-left: 20px;
 }
 
 .rules-backdrop {
