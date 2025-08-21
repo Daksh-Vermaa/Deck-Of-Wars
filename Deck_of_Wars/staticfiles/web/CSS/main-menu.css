@@ -363,6 +363,29 @@ body::after {
   z-index: 999;
 }
 
+.achievement-panel {
+  display: none;
+  position: fixed;
+  top: 5%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  background: url("/static/web/assets/achievement-bg.png") center/cover
+    no-repeat;
+  border: 12px solid #000;
+  border-radius: 15px;
+  -webkit-box-shadow: 17px 15px 8px 3px rgba(0, 0, 0, 1);
+  box-shadow: 17px 15px 8px 3px rgba(0, 0, 0, 1);
+  padding: 40px;
+  width: 600px;
+  height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 1000;
+  -webkit-animation: popIn 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) both;
+  animation: popIn 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) both;
+}
+
 .close-btn {
   background: linear-gradient(45deg, #45b6eb, #32a0d4) !important;
   color: #fff !important;
