@@ -12,25 +12,51 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.openRules = function () {
+    const backdrop = document.getElementById("rulesBackdrop");
+    backdrop.style.display = "block";
+    setTimeout(() => {
+      backdrop.style.backdropFilter = "blur(8px)";
+      backdrop.style.webkitBackdropFilter = "blur(8px)";
+    }, 10);
     document.getElementById("rulesPanel").style.display = "block";
-    document.getElementById("rulesBackdrop").style.display = "block";
     showComicAlert("BAM! Opening rules...", "#A8E6CF");
   };
 
   window.closeRules = function () {
-    document.getElementById("rulesPanel").style.display = "none";
-    document.getElementById("rulesBackdrop").style.display = "none";
+    const panel = document.getElementById("rulesPanel");
+    const backdrop = document.getElementById("rulesBackdrop");
+    backdrop.style.backdropFilter = "blur(0px)";
+    backdrop.style.webkitBackdropFilter = "blur(0px)";
+    panel.classList.add("panel-closing");
+    setTimeout(() => {
+      panel.style.display = "none";
+      panel.classList.remove("panel-closing");
+      backdrop.style.display = "none";
+    }, 400);
   };
 
   window.showAchievements = function () {
+    const backdrop = document.getElementById("rulesBackdrop");
+    backdrop.style.display = "block";
+    setTimeout(() => {
+      backdrop.style.backdropFilter = "blur(8px)";
+      backdrop.style.webkitBackdropFilter = "blur(8px)";
+    }, 10);
     document.getElementById("achievementsPanel").style.display = "block";
-    document.getElementById("rulesBackdrop").style.display = "block";
     showComicAlert("KAPOW! Loading achievements...", "#FFD93D");
   };
 
   window.closeAchievements = function () {
-    document.getElementById("achievementsPanel").style.display = "none";
-    document.getElementById("rulesBackdrop").style.display = "none";
+    const panel = document.getElementById("achievementsPanel");
+    const backdrop = document.getElementById("rulesBackdrop");
+    backdrop.style.backdropFilter = "blur(0px)";
+    backdrop.style.webkitBackdropFilter = "blur(0px)";
+    panel.classList.add("panel-closing");
+    setTimeout(() => {
+      panel.style.display = "none";
+      panel.classList.remove("panel-closing");
+      backdrop.style.display = "none";
+    }, 400);
   };
 
   // Comic-style alert function
@@ -77,6 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   document.head.appendChild(style);
 
+  // Add stamp animation to title on page load
+  const gameTitle = document.querySelector(".game-title");
+  if (gameTitle) {
+    setTimeout(() => {
+      gameTitle.classList.add("stamp-animation");
+    }, 200);
+  }
+
   // Close Rules when clicking outside
   document.addEventListener("click", function (e) {
     const rulesPanel = document.getElementById("rulesPanel");
@@ -87,6 +121,18 @@ document.addEventListener("DOMContentLoaded", function () {
       !e.target.classList.contains("btn-rules")
     ) {
       window.closeRules();
+    }
+  });
+  // Close Achievements when clicking outside
+  document.addEventListener("click", function (e) {
+    const achievementsPanel = document.getElementById("achievementsPanel");
+    if (
+      achievementsPanel &&
+      achievementsPanel.style.display === "block" &&
+      !achievementsPanel.contains(e.target) &&
+      !e.target.classList.contains("btn-achievements")
+    ) {
+      window.closeAchievements();
     }
   });
 });
