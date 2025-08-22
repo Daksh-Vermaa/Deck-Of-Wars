@@ -7,20 +7,9 @@ from django.conf import settings
 class Command(BaseCommand):
     help = "Show deck data"
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--del',
-            action='store_true',
-            help='delete every data'
-        )
-
     def handle(self , *agrs , **kwargs):
         deck_path = os.path.join( settings.BASE_DIR ,  "game" , "data", "deck.json")
         ben_path = os.path.join( settings.BASE_DIR ,  "game" , "data", "Ben_102.json")
-
-        if kwargs['del']:
-            Deck.objects.all().delete()
-            Card.objects.all().delete()
 
         # for deck
         with open(deck_path) as f:
