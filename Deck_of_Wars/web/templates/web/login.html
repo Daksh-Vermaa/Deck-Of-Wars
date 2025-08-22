@@ -66,8 +66,10 @@
       </div>
     </div>
     <!-- Sign Up Form -->
+    <!-- Sign Up Form -->
     <div class="form-container" id="signupForm" style="display: none">
-      <form onsubmit="handleSignUp(event)">
+      <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
         <div class="form-group">
           <label for="signupUsername">
             <i class="fas fa-user"></i> Hero Name
@@ -75,6 +77,7 @@
           <input
             type="text"
             id="signupUsername"
+            name="username"
             class="form-input"
             placeholder="Captain Thunder, Lightning Girl..."
             required
@@ -88,6 +91,7 @@
           <input
             type="email"
             id="signupEmail"
+            name="email"
             class="form-input"
             placeholder="hero@powerclash.com"
             required
@@ -100,6 +104,7 @@
           <input
             type="password"
             id="signupPassword"
+            name="password"
             class="form-input"
             placeholder="Your superhero secret..."
             required
@@ -113,6 +118,7 @@
           <input
             type="password"
             id="confirmPassword"
+            name="confirm_password"
             class="form-input"
             placeholder="Confirm Your superhero secret..."
             required
