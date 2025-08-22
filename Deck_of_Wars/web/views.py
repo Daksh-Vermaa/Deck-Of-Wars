@@ -33,22 +33,18 @@ def register(request):
         if password != confirm_password:
             messages.error(request, "Passwords do not match")
         elif User.objects.filter(username=username).exists():
-            messages.error(request , f'{username} already exists')
+            messages.error(request, f'{username} already exists')
         elif User.objects.filter(email=email).exists():
-            messages.error(request , f'{email} already exists')
-        else :
-            user = User.objects.create_user(username=username ,
-                                             email=email ,
-                                               password=password
-                                            )
+            messages.error(request, f'{email} already exists')
+        else:
+            user = User.objects.create_user(username=username,
+                                           email=email,
+                                           password=password)
             user.save()
-            messages.success(request , f'Signup completed . You can login now')
+            messages.success(request, f'Signup completed. You can login now')
             return redirect('login')
-    else :
-        messages.error(request , "Passwords do not match")
-    return render(request , 'web/register.html' ,
-                   {'title' : 'register'}
-                )
+    
+    return render(request, 'web/register.html', {'title': 'register'})
 
 def login_view(request):
     if request.method == 'POST':
@@ -63,7 +59,7 @@ def login_view(request):
             auth_login(request , user)
             return redirect('Menu')
         else:
-            messages.error(request, 'Invalid username or password')
+            messages.error(request, '')
     
     return render(request , 'web/login.html' ,
                    {'title' : 'login'}
@@ -86,7 +82,7 @@ def Logout(request):
         user_to_delete.delete()
     else:
         logout(request)
-    messages.success(request , f'logged out succesfully')
+    messages.success(request , f'')
     return redirect('login')
 
 

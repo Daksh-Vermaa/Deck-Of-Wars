@@ -47,7 +47,7 @@ function handleSignIn(event) {
 
       // Redirect after success animation
       setTimeout(() => {
-        window.location.href = "/home/"; // Redirect to main game
+        window.location.href = "index.html"; // Redirect to main game
       }, 2000);
     } else {
       showMessage("Invalid credentials! Try again, hero!", "error");
@@ -56,61 +56,55 @@ function handleSignIn(event) {
   }, 1500);
 }
 
-// Handle sign up - now just for client-side validation
+// Handle sign up
 function handleSignUp(event) {
+  event.preventDefault();
+
   const username = document.getElementById("signupUsername").value;
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
 
-  // Client-side validation only
+  // Validation
   if (!username || !email || !password || !confirmPassword) {
-    event.preventDefault();
     showMessage("All fields are required, future hero!", "error");
-    return false;
+    return;
   }
 
   if (username.length < 3) {
-    event.preventDefault();
     showMessage("Hero name must be at least 3 characters!", "error");
-    return false;
+    return;
   }
 
   if (password.length < 6) {
-    event.preventDefault();
     showMessage("Password must be at least 6 characters strong!", "error");
-    return false;
+    return;
   }
 
   if (password !== confirmPassword) {
-    event.preventDefault();
     showMessage("Passwords don't match! Check your powers!", "error");
     shakeInputs(["signupPassword", "confirmPassword"]);
-    return false;
+    return;
   }
 
-  // If validation passes, let the form submit normally
   showLoading(true);
-  return true;
-}
 
-showLoading(true);
-
-// Simulate API call
-setTimeout(() => {
-  showLoading(false);
-  showMessage("BOOM! Welcome to the hero squad!", "success");
-  createMultipleBursts();
-
-  // Clear form
-  document.getElementById("signupForm").reset();
-
-  // Switch to sign in tab after success
+  // Simulate API call
   setTimeout(() => {
-    switchTab("signin");
-    showMessage("Now sign in with your new hero account!", "success");
+    showLoading(false);
+    showMessage("BOOM! Welcome to the hero squad!", "success");
+    createMultipleBursts();
+
+    // Clear form
+    document.getElementById("signupForm").reset();
+
+    // Switch to sign in tab after success
+    setTimeout(() => {
+      switchTab("signin");
+      showMessage("Now sign in with your new hero account!", "success");
+    }, 2000);
   }, 2000);
-}, 2000);
+}
 
 // Show loading indicator
 function showLoading(show) {
