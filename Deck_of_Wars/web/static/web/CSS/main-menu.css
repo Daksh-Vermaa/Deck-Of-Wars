@@ -87,26 +87,23 @@ body::after {
 
 .title-power {
   color: #8dcfef;
-  /* CORRECTED: Added commas to the linear-gradient */
-  background: linear-gradient(45deg, #00c6ff, #1e90ff, #0066ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   position: relative;
   left: -20px;
-  text-shadow: 1px 1px 0px #32a0d4, 3px 3px 0px #1d83b3, 5px 5px 0px #0e7bad,
-    8px 8px 0px #000, 15px 15px 15px rgba(0, 0, 0, 1);
+  text-shadow: 3px 3px 0px #1e90ff, 6px 6px 0px #4169e1, 11px 11px 0px #000000,
+    15px 15px 15px rgba(0, 0, 0, 1);
 }
 
 .title-clash {
   color: #d54237;
-  background: linear-gradient(45deg, #dd3c3c, #e4413b, #dc143c);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   position: relative;
-  text-shadow: 1px 1px 0px #dd3c3c, 3px 3px 0px #e4413b, 5px 5px 0px #dc143c,
-    8px 8px 0px #000, 12px 12px 8px rgba(0, 0, 0, 1);
+  text-shadow: 3px 3px 0px #e4413b, 6px 6px 0px #dc143c, 11px 11px 0px #000000,
+    12px 12px 8px rgba(0, 0, 0, 1);
 }
 
 @keyframes slamDown {
@@ -456,26 +453,18 @@ body::after {
   position: absolute;
   top: 15px;
   right: 15px;
-  width: 35px;
-  height: 35px;
-  background: linear-gradient(45deg, #ff4757, #ff3742);
-  border: 3px solid #000;
-  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  color: #fff;
-  box-shadow: 3px 3px 0px #000;
-  transition: all 0.3s ease;
   z-index: 1001;
+  padding: 0;
 }
 
-.cross-btn:hover {
-  transform: rotate(360deg) scale(1.1);
-  box-shadow: 4px 4px 0px #000;
-  background: linear-gradient(45deg, #ff3742, #ff2f3a);
+.cross-btn img {
+  width: 30px;
+  height: 30px;
+  transition: all 0.3s ease;
 }
 
 .cross-btn:active {
