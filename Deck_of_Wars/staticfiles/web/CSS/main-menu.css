@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bangers:wght@400&family=Creepster:wght@400&family=Bungee:wght@400&family=Fredoka+One:wght@400&family=Luckiest+Guy:wght@400&display=swap"); /* Bangers, Creepster, Bungee, Fredoka, Luckiest Guy */
-@import url("https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap"); /* Quantico */
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Bungee&family=Jura:wght@300..700&family=Oswald:wght@200..700&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap"); /* Bangers, Bungee, Jura, Oswald, Quantico */
 
 * {
   margin: 0;
@@ -73,15 +72,15 @@ body::after {
 /* Comic book title */
 .game-title {
   font-family: "Bungee", cursive;
-  font-size: 6rem;
+  font-size: 7.5rem;
   margin-bottom: 50px;
-  animation: titlePulse 3s ease-in-out infinite alternate;
   letter-spacing: 8px;
   transform: perspective(500px) rotateX(15deg);
   position: relative;
   display: flex;
   gap: 20px;
   opacity: 0;
+  animation: slamDown 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.3s forwards;
 }
 
 .title-power {
@@ -125,12 +124,30 @@ body::after {
   -webkit-text-fill-color: #000;
 }
 
+@keyframes slamDown {
+  0% {
+    transform: translateY(-200px) scale(1.5);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(15px) scale(0.9);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-5px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
 /* Menu container */
 .menu-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  max-width: 800px;
+  gap: 25px;
+  max-width: 100px;
   margin-bottom: 40px;
 }
 
@@ -138,9 +155,8 @@ body::after {
 .comic-button {
   font-family: "Bangers", cursive !important;
   font-size: 1.8rem !important;
-  padding: 20px 40px !important;
-  /* padding-left: 20px; */
-  border: 6px solid #000 !important;
+  padding: 20px !important;
+  border: 5px solid #000 !important;
   color: #000 !important;
   cursor: pointer;
   position: relative;
@@ -152,8 +168,8 @@ body::after {
   transform: perspective(500px) rotateX(5deg);
   overflow: hidden;
   text-decoration: none !important;
-  width: auto !important;
-  left: auto !important;
+  width: 330px !important;
+  left: 80px !important;
   top: auto !important;
   display: flex !important;
   align-items: center !important;
@@ -276,8 +292,8 @@ body::after {
   border-radius: 15px 15px 15px 15px;
   -webkit-border-radius: 15px 15px 15px 15px;
   -moz-border-radius: 15px 15px 15px 15px;
-  border: 11px solid #000000;
-  box-shadow: 10px 12px 0px 0px rgba(0, 0, 0, 1);
+  border: 7px solid #000000;
+  box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 1);
   -webkit-box-shadow: 10px 12px 0px 0px rgba(0, 0, 0, 1);
   -moz-box-shadow: 10px 12px 0px 0px rgba(0, 0, 0, 1);
   padding: 40px;
@@ -323,25 +339,30 @@ body::after {
 }
 
 .rules-content h3 {
-  font-family: "bangers", cursive;
+  font-family: "Oswald", cursive;
   font-size: 1.8rem;
   margin: 20px 0px 10px -15px;
   color: #fece02;
   letter-spacing: 3px;
+  text-transform: uppercase;
 }
 .rules-content h4 {
-  font-family: "bangers", cursive;
+  font-family: "Jura", cursive;
   font-size: 1.2rem;
   margin: 20px 0 10px 0;
   color: #ffd000;
   letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .rules-content {
-  font-family: "Fredoka", cursive;
+  font-family: "Quantico", cursive;
   font-size: 1.2rem;
   color: #ffffff;
   line-height: 1.6;
+  letter-spacing: 1px;
+  word-spacing: 2px;
 }
 
 .rules-content p {
@@ -383,7 +404,7 @@ body::after {
   border-radius: 15px 15px 15px 15px;
   -webkit-border-radius: 15px 15px 15px 15px;
   -moz-border-radius: 15px 15px 15px 15px;
-  border: 11px solid #000000;
+  border: 7px solid #000000;
   box-shadow: 10px 12px 0px 0px rgba(0, 0, 0, 1);
   -webkit-box-shadow: 10px 12px 0px 0px rgba(0, 0, 0, 1);
   -moz-box-shadow: 10px 12px 0px 0px rgba(0, 0, 0, 1);
@@ -419,9 +440,6 @@ body::after {
 
 /* Close button animation */
 .panel-closing {
-  /* position: absolute;
-  right: 100px;
-  bottom: 200px; */
   -webkit-animation: panelSlideOut 0.8s ease-in-out both;
   animation: panelSlideOut 0.8s ease-in-out both;
 }
@@ -463,7 +481,6 @@ body::after {
   justify-content: center;
   font-size: 1.5rem;
   color: #fff;
-  /* font-weight: bold; */
   box-shadow: 3px 3px 0px #000;
   transition: all 0.3s ease;
   z-index: 1001;
@@ -476,32 +493,8 @@ body::after {
 }
 
 .cross-btn:active {
-  transform: rotate(90deg) scale(0.95);
-  box-shadow: 2px 2px 0px #000;
-}
-
-/* Stamp animation for title */
-@keyframes stampEffect {
-  0% {
-    transform: perspective(500px) rotateX(15deg) scale(0.1) rotate(-5deg);
-    opacity: 0;
-  }
-  50% {
-    transform: perspective(500px) rotateX(15deg) scale(1.1) rotate(2deg);
-    opacity: 0.8;
-  }
-  70% {
-    transform: perspective(500px) rotateX(15deg) scale(0.95) rotate(-1deg);
-    opacity: 1;
-  }
-  100% {
-    transform: perspective(500px) rotateX(15deg) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-
-.stamp-animation {
-  animation: stampEffect 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  transform: translate(4px, 4px) rotate(0deg) scale(1);
+  box-shadow: none;
 }
 
 .close-btn:hover {
@@ -552,28 +545,6 @@ body::after {
   margin-bottom: 20px;
 }
 
-@keyframes titlePulse {
-  0%,
-  100% {
-    transform: perspective(500px) rotateX(15deg) scale(1);
-  }
-  50% {
-    transform: perspective(500px) rotateX(15deg) scale(1.05);
-  }
-}
-
-@keyframes powerPulse {
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.3) rotate(5deg);
-    opacity: 1;
-  }
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .game-title {
@@ -582,16 +553,6 @@ body::after {
     flex-direction: column;
     gap: 10px;
     align-items: center;
-  }
-
-  .menu-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .comic-button {
-    font-size: 1.4rem !important;
-    padding: 15px 30px !important;
   }
 
   .login-options .row .col-12 {
