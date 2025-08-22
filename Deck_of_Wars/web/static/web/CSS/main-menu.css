@@ -109,26 +109,6 @@ body::after {
     8px 8px 0px #000, 12px 12px 8px rgba(0, 0, 0, 1);
 }
 
-/* .title-power::before {
-  content: "POWER";
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  color: #000;
-  z-index: -1;
-  -webkit-text-fill-color: #000;
-}
-
-.title-clash::before {
-  content: "CLASH";
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  color: #000;
-  z-index: -1;
-  -webkit-text-fill-color: #000;
-} */
-
 @keyframes slamDown {
   0% {
     transform: translateY(-200px) scale(1.5);
