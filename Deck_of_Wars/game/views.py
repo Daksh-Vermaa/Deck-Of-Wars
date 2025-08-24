@@ -15,15 +15,15 @@ class GameState:
         self.deck_selection()
 
     def load_json_data(self):
-        ben_path = os.path.join( settings.BASE_DIR ,  "game" , "data", "Ben_10.json")
+        ben_path = os.path.join("game" , "data", "Ben_10.json")
         with open(ben_path) as f:
             self.ben_data = json.load(f)
 
 
     def deck_selection(self):
-        deck_name = self.gamesession.mode
-        if deck_name == 'Ben_10':
-            self.card_set = self.ben_data
+        deck_name:str = self.gamesession.mode
+        if deck_name == "Ben_10" :
+            self.card_set = (self.ben_data).copy()
         elif deck_name == "Marvel":
             pass
         elif deck_name == "DC":
@@ -39,24 +39,22 @@ class GameState:
         return hand
         
 
-    def game_state(self , card_set=None):
-        if card_set == None :
-            card_set = []
-
+    def game_state(self):
         game_state = {
             "code" : self.gamesession.code ,
             "mode" : self.gamesession.mode ,
             "players" : {} ,
-            "remaining_deck": self.card_set
+            "remaining_deck": self.card_set,
         }
 
-        for index , players in enumerate (self.gamesession.Player_joined):
-            game_state["players"][players] = {
-                "id" : index+1 ,
-                "hand" : self.card_distribution()
-            }
-            index += 1
+        players_joined = self.gamesession.get_players()
 
+        for index , players in enumerate(players_joined):
+            game_state["players"][players] = {
+                "id" : index+1 ,  
+                "hand" : self.card_distribution() 
+            }
+            
         return game_state
 
 
@@ -67,7 +65,7 @@ def games(request):
     cache.set(f"GAME : {code}" , json.dumps(state) , timeout=3600)
 
     state_json = cache.get(f"GAME : {code}")
-    context = {}
+    context = {"title" : "GAME"}
 
     if state_json:
         context["game_state"]=json.loads(state_json)

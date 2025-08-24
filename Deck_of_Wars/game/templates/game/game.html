@@ -2,8 +2,23 @@
 {% block content %} 
 <h1>Game</h1>
 
-{% for players in game_state.players %}
-    {{ players }}
+<p>Game Code: {{ game_state.code }}</p>
+<p>Mode: {{ game_state.mode }}</p>
+
+{% for players_name , player_data in game_state.players.items %}
+    <p>ID : {{player_data.id }}</p> 
+    <p>USERNAME : {{players_name}}</p>
+
+    {%for hands in player_data.hand %}
+        NAME {{ hands.Name }}
+        RANK {{ hands.Rank }}
+        POWER {{ hands.Power}}
+        STRENGTH {{hands.Strength}}
+        SPEED {{hands.Speed}}
+        IQ {{hands.Intelligence}}
+        HEIGHT {{hands.Height}}
+        <BR></BR>
+    {%endfor%}
 {% endfor %}
 
 {% endblock content %}
