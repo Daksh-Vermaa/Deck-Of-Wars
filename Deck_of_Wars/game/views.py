@@ -10,17 +10,22 @@ import random
 class GameState:
     def __init__(self , code):
         self.card_set = []
+        self.power_set = []
         self.gamesession = GameSession.objects.get(code=code)
         self.load_json_data()
+        self.random_power = random.randint(0 , len(self.power_data)-1)    
         self.deck_selection()
 
     def load_json_data(self):
+        power_path = os.path.join("game" , "data", "power.json")
         ben_path = os.path.join("game" , "data", "Ben_10.json")
-        with open(ben_path) as f:
-            self.ben_data = json.load(f)
 
+        with open(power_path) as f1 , open(ben_path) as f2:
+            self.power_data = json.load(f1)
+            self.ben_data = json.load(f2)
 
     def deck_selection(self):
+        self.power_set = (self.power_data).copy()
         deck_name:str = self.gamesession.mode
         if deck_name == "Ben_10" :
             self.card_set = (self.ben_data).copy()
@@ -31,13 +36,18 @@ class GameState:
         else:
             messages.error(f'select a valid mode ')
 
-    def card_distribution(self):
+    def power_distribution(self):
+        # random.shuffle(self.power_set)
+        hand1 = self.power_set[:self.random_power]
+        self.power_set = self.power_set[self.random_power:]
+        return hand1
 
-        random.shuffle(self.card_set)
-        hand = self.card_set[:10]
-        self.card_set = self.card_set[10:]
-        return hand
-        
+    def card_distribution(self):
+        normal = (10)-(self.random_power)
+        hand2 = self.card_set[:normal]
+        self.card_set = self.card_set[normal:]
+        return hand2
+                
 
     def game_state(self):
         game_state = {
@@ -52,7 +62,8 @@ class GameState:
         for index , players in enumerate(players_joined):
             game_state["players"][players] = {
                 "id" : index+1 ,  
-                "hand" : self.card_distribution() 
+                "hand1" : self.power_distribution(),
+                "hand2" : self.card_distribution() 
             }
             
         return game_state
