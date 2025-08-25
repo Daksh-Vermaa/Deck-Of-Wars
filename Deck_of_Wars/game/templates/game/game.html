@@ -1,24 +1,33 @@
 {% extends 'game/base.html' %}
 {% block content %} 
 <h1>Game</h1>
-
+<!-- 
 <p>Game Code: {{ game_state.code }}</p>
-<p>Mode: {{ game_state.mode }}</p>
+<p>Mode: {{ game_state.mode }}</p> -->
 
 {% for players_name , player_data in game_state.players.items %}
     <p>ID : {{player_data.id }}</p> 
     <p>USERNAME : {{players_name}}</p>
 
-    {%for hands in player_data.hand %}
-        NAME {{ hands.Name }}
-        RANK {{ hands.Rank }}
-        POWER {{ hands.Power}}
-        STRENGTH {{hands.Strength}}
-        SPEED {{hands.Speed}}
-        IQ {{hands.Intelligence}}
-        HEIGHT {{hands.Height}}
+    {%for hand2 in player_data.hand2 %}
+        {{ forloop.counter }}. NAME {{ hand2.Name }}
+        RANK {{ hand2.Rank }}
+        POWER {{ hand2.Power}}
+        STRENGTH {{hand2.Strength}}
+        SPEED {{hand2.Speed}}
+        IQ {{hand2.Intelligence}}
+        HEIGHT {{hand2.Height}}
         <BR></BR>
     {%endfor%}
+
+    {% for hand1 in player_data.hand1 %}
+        {{ forloop.counter }}Card_name {{ hand1.name }}    
+         ----  Ability {{ hand1.ability }}
+        <br>
+    {%endfor%}
+
 {% endfor %}
+
+<!-- {{ game_state.remaining_deck }} -->
 
 {% endblock content %}

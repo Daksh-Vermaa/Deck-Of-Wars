@@ -28,3 +28,9 @@ class Card(models.Model):
         ordering = ['deck' , 'Rank']
         unique_together = ['deck' , 'Rank']
 
+class Power(models.Model):
+    name = models.CharField(max_length=20 , unique=True)
+    ability = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.name} - {self.ability}"
