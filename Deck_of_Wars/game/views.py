@@ -63,7 +63,7 @@ class GameState:
         
         for index , players in enumerate(players_joined):
             if players != players_joined[-1]:
-                self.random_power = random.randint(0 , len(self.power_data))    
+                self.random_power = random.randint(0 , len(self.power_set))    
             else :
                 self.random_power = len(self.power_set)
 
