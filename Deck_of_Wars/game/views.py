@@ -13,7 +13,7 @@ class GameState:
         self.power_set = []
         self.gamesession = GameSession.objects.get(code=code)
         self.load_json_data()
-        self.random_power = random.randint(0 , len(self.power_data)-1)    
+        self.random_power = 0 
         self.deck_selection()
 
     def load_json_data(self):
@@ -37,13 +37,15 @@ class GameState:
             messages.error(f'select a valid mode ')
 
     def power_distribution(self):
-        # random.shuffle(self.power_set)
+        random.shuffle(self.power_set)
         hand1 = self.power_set[:self.random_power]
         self.power_set = self.power_set[self.random_power:]
         return hand1
 
     def card_distribution(self):
+        random.shuffle(self.card_set)
         normal = (10)-(self.random_power)
+        print(self.random_power)
         hand2 = self.card_set[:normal]
         self.card_set = self.card_set[normal:]
         return hand2
@@ -58,8 +60,13 @@ class GameState:
         }
 
         players_joined = self.gamesession.get_players()
-
+        
         for index , players in enumerate(players_joined):
+            if players != players_joined[-1]:
+                self.random_power = random.randint(0 , len(self.power_data))    
+            else :
+                self.random_power = len(self.power_set)
+
             game_state["players"][players] = {
                 "id" : index+1 ,  
                 "hand1" : self.power_distribution(),
