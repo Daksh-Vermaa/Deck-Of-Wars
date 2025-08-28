@@ -1,11 +1,57 @@
-{% extends 'web/base.html' %} {% block content %}
-<h1>Select Game Setup</h1>
+{% extends 'web/base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'web/css/lobbyp.css' %}" />
+{% endblock %} {% block content %} {% csrf_token %}
+<!-- Messages Display -->
 {% if messages %} {% for message in messages %}
 <div class="alert alert-info">{{ message }}</div>
 {% endfor %} {% endif %}
 
-<form method="post">
-  {% csrf_token %} {{ form }}
-  <button type="submit">Continue</button>
-</form>
+<div class="main-container" id="mainContainer">
+  <div class="bg">
+    <img src="{% static 'web/assets/white-bg.png' %}" alt="Background" />
+  </div>
+  <div class="panels">
+    <div class="box-1 panel-box" data-mode="ben">
+      <img class="panel-1" src="{% static 'web/assets/panel-1.png' %}" alt="Ben 10 Mode" />
+    </div>
+    <div class="box-2 panel-box" data-mode="avengers">
+      <img class="panel-2" src="{% static 'web/assets/panel-2.png' %}" alt="Avengers Mode" />
+    </div>
+    <div class="box-3 panel-box" data-mode="dc">
+      <img class="panel-3" src="{% static 'web/assets/panel-3.png' %}" alt="DC Mode" />
+    </div>
+    <div class="box-4 panel-box">
+      <img class="panel-4" src="{% static 'web/assets/panel-4.png' %}" alt="Coming Soon" />
+    </div>
+  </div>
+</div>
+
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-panel" id="popupPanel">
+    <h2 class="popup-title">Choose Players</h2>
+    <div class="player-options">
+      <div class="player-btn" data-players="2">
+        <i class="fas fa-users"></i>
+        <span>2 Players</span>
+      </div>
+      <div class="player-btn" data-players="3">
+        <i class="fas fa-users"></i>
+        <span>3 Players</span>
+      </div>
+      <div class="player-btn" data-players="4">
+        <i class="fas fa-users"></i>
+        <span>4 Players</span>
+      </div>
+    </div>
+    <div class="popup-buttons">
+      <button class="popup-btn start-btn" id="startGameBtn">
+        ▶ Start Game
+      </button>
+      <button class="popup-btn cancel-btn" id="cancelBtn">← Back</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block extra_js %}
+<script src="{% static 'web/javascript/lobbyp.js' %}"></script>
 {% endblock %}
