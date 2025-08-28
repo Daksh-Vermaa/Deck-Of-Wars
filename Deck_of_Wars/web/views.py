@@ -17,12 +17,6 @@ def main_menu(request):
                      {'title' : 'Main Menu'} 
                     )
 
-def main_menu(request):
-    return render(request ,
-                   'web/home.html' ,
-                     {'title' : 'Main Menu'} 
-                    )
-
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -66,12 +60,12 @@ def login_view(request):
                 )
 
 def guest_login(request):
-    username = f"guest_id_|{get_random_string(6)}|"
-    user = User.objects.create_user(username)
+    username = f"guest_{get_random_string(8)}"
+    user = User.objects.create_user(username=username)
     user.set_unusable_password()
     user.save()
     
-    auth_login(request , user)
+    auth_login(request, user)
     return redirect('Menu')
 
 @login_required
@@ -93,7 +87,7 @@ def create_code():
         code = secrets.token_urlsafe(6)[:6].upper()
     return code
 
-def Game_setup(request):
+def lobbyp_view(request): 
     if request.method == 'POST':  
         form = GameSetup(request.POST)  
         if form.is_valid(): 
