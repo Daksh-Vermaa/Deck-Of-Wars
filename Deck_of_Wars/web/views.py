@@ -117,14 +117,18 @@ def loading_page(request):
     if code :
         try :
             game_session = GameSession.objects.get(code=code  , is_active=True)
-            return render(request , 'web/loading.html' , {
-                            'title' : 'loading',
-                            'num_players' : game_session.num_players,
-                            'mode' : game_session.mode,
-                            'code': game_session.code,
-                            'players_joined' : game_session.get_players(),
-                            'NO' : len(game_session.get_players())
-                        })
+            if game_session.is_full():
+                return redirect(f'/Game/?code={code}')
+            
+            else :
+                return render(request , 'web/loading.html' , {
+                                'title' : 'loading',
+                                'num_players' : game_session.num_players,
+                                'mode' : game_session.mode,
+                                'code': game_session.code,
+                                'players_joined' : game_session.get_players(),
+                                'NO' : len(game_session.get_players())
+                            })
 
         except GameSession.DoesNotExist:
             messages.error(request , 'code incorrect')
@@ -155,17 +159,14 @@ def enter_code(request):
     return render(request , 'web/lobbys.html' , {'title' : 'Secondary Lobby'})
 
 def player_card(request):
-    try :
-        p_card , created  = Player.objects.get_or_create(Name=request.user)
-        
-        
-        return redirect(request , 'web/profile.html' , {
-                        'title' : 'Profile',
-                        'profile' : p_card ,
-                        'created' : created
-                        }
-                    )
-    except :
-        messages.error(request , f'No player identified')
-        return redirect('Menu')
+    player , created = Player.objects.get_or_create(Name=request.user , is_active=True)
 
+    try:
+        return render(request, 'web/profile.html', {
+            'title': 'Profile',
+            'profile': player,
+            'created' : created
+        })
+    except Player.DoesNotExist:
+        messages.error(request, 'No player identified')
+        return redirect('Menu')

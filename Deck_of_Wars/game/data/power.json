@@ -1,0 +1,21 @@
+[   {
+        "name": "Nullify",
+        "ability" : "removes card of any one player back to deck"
+    },
+    {
+        "name": "Revive",
+        "ability" : "revive your any card"
+    },
+    {
+        "name": "Reveal",
+        "ability" : "reveals all the card of any one players"
+    },
+    {
+        "name": "Deck-Swap",
+        "ability" : "swaps deck with any one player"
+    },
+    {
+        "name": "Card-Swap",
+        "ability" : "swap 1 cards with any one player"
+    }
+]

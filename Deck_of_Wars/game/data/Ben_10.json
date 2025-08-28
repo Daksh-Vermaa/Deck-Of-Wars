@@ -1,0 +1,317 @@
+[
+    {
+        "Name": "Alien X",
+        "Rank": 1,
+        "Power": 99,
+        "Strength": 1000,
+        "Speed": 97,
+        "Intelligence": 96,
+        "Height": "210 cm"
+    },
+    {
+        "Name": "Professor Paradox",
+        "Rank": 2,
+        "Power": 98,
+        "Strength": 100,
+        "Speed": 97,
+        "Intelligence": 99,
+        "Height": "180 cm"
+    },
+    {
+        "Name": "Clockwork",
+        "Rank": 3,
+        "Power": 95,
+        "Strength": 797,
+        "Speed": 54,
+        "Intelligence": 91,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Atomix",
+        "Rank": 4,
+        "Power": 97,
+        "Strength": 947,
+        "Speed": 78,
+        "Intelligence": 87,
+        "Height": "250 cm"
+    },
+    {
+        "Name": "Dagon",
+        "Rank": 5,
+        "Power": 98, 
+        "Strength": 987, 
+        "Speed": 92, 
+        "Intelligence": 96, 
+        "Height": "5000 cm"
+    },
+    {
+        "Name": "Ultimate Way Big",
+        "Rank": 6,
+        "Power": 95,
+        "Strength": 969,
+        "Speed": 64,
+        "Intelligence": 68,
+        "Height": "3000 cm"
+    },
+    {
+        "Name": "Ultimate Echo Echo",
+        "Rank": 7,
+        "Power": 86,
+        "Strength": 747,
+        "Speed": 79,
+        "Intelligence": 84,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Gravattack",
+        "Rank": 8,
+        "Power": 83,
+        "Strength": 899,
+        "Speed": 27,
+        "Intelligence": 72,
+        "Height": "300 cm"
+    },
+    {
+        "Name": "Waybig",
+        "Rank": 9,
+        "Power": 91,
+        "Strength": 952,
+        "Speed": 55,
+        "Intelligence": 59,
+        "Height": "1500 cm"
+    },
+    {
+        "Name": "Ultimate Humungousaur",
+        "Rank": 10,
+        "Power": 87,
+        "Strength": 924,
+        "Speed": 69,
+        "Intelligence": 65,
+        "Height": "400 cm"
+    },
+    {
+        "Name": "NRG",
+        "Rank": 11,
+        "Power": 71,
+        "Strength": 694,
+        "Speed": 41,
+        "Intelligence": 62,
+        "Height": "220 cm"
+    },
+    {
+        "Name": "Ultimate Swampfire",
+        "Rank": 12,
+        "Power": 89,
+        "Strength": 799,
+        "Speed": 72,
+        "Intelligence": 74,
+        "Height": "250 cm"
+    },
+    {
+        "Name": "Feedback",
+        "Rank": 13,
+        "Power": 81,
+        "Strength": 600,
+        "Speed": 87,
+        "Intelligence": 70,
+        "Height": "180 cm"
+    },
+    {
+        "Name": "Ultimate Big Chill",
+        "Rank": 14,
+        "Power": 84,
+        "Strength": 699,
+        "Speed": 89,
+        "Intelligence": 80,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Gwen Tennyson (anodite form)",
+        "Rank": 15,
+        "Power": 88,
+        "Strength": 700,
+        "Speed": 83,
+        "Intelligence": 94,
+        "Height": "170 cm"
+    },
+    {
+        "Name": "Ghost freak",
+        "Rank": 16,
+        "Power": 68,
+        "Strength": 394,
+        "Speed": 80,
+        "Intelligence": 79,
+        "Height": "190 cm"
+    },
+    {
+        "Name": "Chroma stone",
+        "Rank": 17,
+        "Power": 75,
+        "Strength": 804,
+        "Speed": 56,
+        "Intelligence": 74,
+        "Height": "220 cm"
+    },
+    {
+        "Name": "Heatblast",
+        "Rank": 18,
+        "Power": 73,
+        "Strength": 601,
+        "Speed": 69,
+        "Intelligence": 59,
+        "Height": "190 cm"
+    },
+    {
+        "Name": "Four arms",
+        "Rank": 19,
+        "Power": 73,
+        "Strength": 878,
+        "Speed": 53,
+        "Intelligence": 59,
+        "Height": "360 cm"
+    },
+    {
+        "Name": "Xlr8",
+        "Rank": 20,
+        "Power": 71,
+        "Strength": 299,
+        "Speed": 96,
+        "Intelligence": 69,
+        "Height": "180 cm"
+    },
+    {
+        "Name": "Jetray",
+        "Rank": 21,
+        "Power": 74,
+        "Strength": 400,
+        "Speed": 91,
+        "Intelligence": 63,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Lodestar",
+        "Rank": 22,
+        "Power": 72,
+        "Strength": 746,
+        "Speed": 46,
+        "Intelligence": 58,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Diamondhead",
+        "Rank": 23,
+        "Power": 77,
+        "Strength": 847,
+        "Speed": 52,
+        "Intelligence": 64,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Ultimate Kevin",
+        "Rank": 24,
+        "Power": 88,
+        "Strength": 898,
+        "Speed": 73,
+        "Intelligence": 73,
+        "Height": "220 cm"
+    },
+    {
+        "Name": "Charmcaster",
+        "Rank": 25,
+        "Power": 71,
+        "Strength": 42,
+        "Speed": 46,
+        "Intelligence": 79,
+        "Height": "170 cm"
+    },
+    {
+        "Name": "Upgrade",
+        "Rank": 26,
+        "Power": 75,
+        "Strength": 502,
+        "Speed": 60,
+        "Intelligence": 77,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Swampfire",
+        "Rank": 27,
+        "Power": 73,
+        "Strength": 753,
+        "Speed": 62,
+        "Intelligence": 68,
+        "Height": "190 cm"
+    },
+    {
+        "Name": "Echo echo",
+        "Rank": 28,
+        "Power": 73,
+        "Strength": 598,
+        "Speed": 68,
+        "Intelligence": 73,
+        "Height": "100 cm"
+    },
+    {
+        "Name": "Humungasour",
+        "Rank": 29,
+        "Power": 83,
+        "Strength": 896,
+        "Speed": 58,
+        "Intelligence": 57,
+        "Height": "300 cm"
+    },
+    {
+        "Name": "Ultimate spidermonkey",
+        "Rank": 30,
+        "Power": 82,
+        "Strength": 783,
+        "Speed": 87,
+        "Intelligence": 67,
+        "Height": "250 cm"
+    },
+    {
+        "Name": "Brainstorm",
+        "Rank": 31,
+        "Power": 70,
+        "Strength": 201,
+        "Speed": 29,
+        "Intelligence": 97,
+        "Height": "150 cm"
+    },
+    {
+        "Name": "Gutrot",
+        "Rank": 32,
+        "Power": 68,
+        "Strength": 599,
+        "Speed": 49,
+        "Intelligence": 77,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Pesky dust",
+        "Rank": 33,
+        "Power": 49,
+        "Strength": 51,
+        "Speed": 71,
+        "Intelligence": 77,
+        "Height": "100 cm"
+    },
+    {
+        "Name": "Ultimate wildmutt",
+        "Rank": 34,
+        "Power": 72,
+        "Strength": 785,
+        "Speed": 77,
+        "Intelligence": 47,
+        "Height": "200 cm"
+    },
+    {
+        "Name": "Rath",
+        "Rank": 35,
+        "Power": 77,
+        "Strength": 848,
+        "Speed": 72,
+        "Intelligence": 20,
+        "Height": "200 cm"
+    }
+]

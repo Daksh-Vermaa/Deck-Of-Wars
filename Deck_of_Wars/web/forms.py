@@ -1,7 +1,7 @@
 from django import forms
 
 MODE_SELECTION = [
-    ('Ben 10' , 'Ben 10'),
+    ('Ben_10' , 'Ben_10'),
     ('Marvel' , 'Marvel'),
     ('DC' , 'DC')
 ]
