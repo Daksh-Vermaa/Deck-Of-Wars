@@ -1,7 +1,6 @@
 from django.urls import path 
 from . import views
 
-
 urlpatterns = [
-    path('' , views.game , name='Game-Room'),
-]
+    path('Game/' , views.games , name='Game'),
+]   
