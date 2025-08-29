@@ -38,12 +38,14 @@ class GameState:
 
     def power_distribution(self):
         random.shuffle(self.power_set)
+        # random.seed(0)
         hand1 = self.power_set[:self.random_power]
         self.power_set = self.power_set[self.random_power:]
         return hand1
 
     def card_distribution(self):
         random.shuffle(self.card_set)
+        # random.seed(0)
         normal = (10)-(self.random_power)
         print(self.random_power)
         hand2 = self.card_set[:normal]
@@ -66,7 +68,6 @@ class GameState:
                 self.random_power = random.randint(0 , len(self.power_set))    
             else :
                 self.random_power = len(self.power_set)
-
             game_state["players"][players] = {
                 "id" : index+1 ,  
                 "hand1" : self.power_distribution(),
@@ -79,9 +80,9 @@ class GameState:
 def games(request):
     code = request.GET.get('code')
     gs = GameState(code)
-    state = gs.game_state()   
-    cache.set(f"GAME : {code}" , json.dumps(state) , timeout=3600)
+    state = gs.game_state()
 
+    cache.set(f"GAME : {code}" , json.dumps(state) , timeout=3600)
     state_json = cache.get(f"GAME : {code}")
     context = {"title" : "GAME"}
 
