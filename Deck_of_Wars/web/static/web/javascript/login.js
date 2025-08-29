@@ -124,7 +124,6 @@ function showMessage(text, type) {
   messageArea.innerHTML = "";
   messageArea.appendChild(message);
 
-  // Auto remove after 5 seconds
   setTimeout(() => {
     if (message.parentNode) {
       message.remove();
@@ -410,14 +409,13 @@ function switchTab(tabName) {
   const signinTab = document.getElementById("signinTab");
   const signupTab = document.getElementById("signupTab");
   const title = document.querySelector(".auth-title");
-  const guestContainer = document.querySelector(".guest-login-container"); // ADD THIS LINE to get the guest login container
-
+  const guestContainer = document.querySelector(".guest-login-container");
   clearMessages();
 
   if (tabName === "signin") {
     signinForm.style.display = "block";
     signupForm.style.display = "none";
-    guestContainer.style.display = "block"; // ADD THIS LINE to show the guest button
+    guestContainer.style.display = "block";
     signinTab.classList.add("active");
     signupTab.classList.remove("active");
     title.textContent = " ";
@@ -429,7 +427,7 @@ function switchTab(tabName) {
   } else {
     signupForm.style.display = "block";
     signinForm.style.display = "none";
-    guestContainer.style.display = "none"; // ADD THIS LINE to hide the guest button
+    guestContainer.style.display = "none";
     signinTab.classList.remove("active");
     signupTab.classList.add("active");
 
@@ -449,7 +447,6 @@ function handleGuestLogin(event) {
   showMessage("ZAP! Entering as a guest!", "success");
   createPowerBurst(event.target);
 
-  // Make the guest login request
   showLoading(true);
 
   // Redirect to the Django guest login URL
