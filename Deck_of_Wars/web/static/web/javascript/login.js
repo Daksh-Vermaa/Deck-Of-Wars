@@ -14,8 +14,8 @@ function switchTab(tabName) {
     signupForm.style.display = "none";
     signinTab.classList.add("active");
     signupTab.classList.remove("active");
-    title.textContent = "WELCOME BACK HERO";
-    title.setAttribute("data-text", "WELCOME BACK HERO");
+    title.textContent = " ";
+    title.setAttribute("data-text", " ");
   }
 
   // Add tab switch effect
@@ -420,8 +420,8 @@ function switchTab(tabName) {
     guestContainer.style.display = "block"; // ADD THIS LINE to show the guest button
     signinTab.classList.add("active");
     signupTab.classList.remove("active");
-    title.textContent = "WELCOME BACK HERO";
-    title.setAttribute("data-text", "WELCOME BACK HERO");
+    title.textContent = " ";
+    title.setAttribute("data-text", " ");
 
     setTimeout(() => {
       document.getElementById("signinEmail").focus();
