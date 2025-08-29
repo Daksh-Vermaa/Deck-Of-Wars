@@ -1,10 +1,12 @@
 from django.urls import path 
+from django.urls import path, include
 from . import views
 from django.views.generic import RedirectView
 
 urlpatterns = [
+    # path('', RedirectView.as_view(url='/login/', permanent=False)),
     path('home/' , views.main_menu , name='Menu'),
-    path('lobbyp/' , views.Game_setup , name='Create'),
+    path('lobbyp/' , views.lobbyp_view , name='Create'),
     path('lobbys/' , views.enter_code , name='Join'),
     path('logout/' , views.Logout , name='logout'),
     path('guest/', views.guest_login, name='guest_login'),

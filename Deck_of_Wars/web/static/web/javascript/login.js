@@ -47,7 +47,7 @@ function handleSignIn(event) {
 
       // Redirect after success animation
       setTimeout(() => {
-        window.location.href = "index.html"; // Redirect to main game
+        window.location.href = "/home/"; // Redirect to main game
       }, 2000);
     } else {
       showMessage("Invalid credentials! Try again, hero!", "error");
@@ -410,12 +410,14 @@ function switchTab(tabName) {
   const signinTab = document.getElementById("signinTab");
   const signupTab = document.getElementById("signupTab");
   const title = document.querySelector(".auth-title");
+  const guestContainer = document.querySelector(".guest-login-container"); // ADD THIS LINE to get the guest login container
 
   clearMessages();
 
   if (tabName === "signin") {
     signinForm.style.display = "block";
     signupForm.style.display = "none";
+    guestContainer.style.display = "block"; // ADD THIS LINE to show the guest button
     signinTab.classList.add("active");
     signupTab.classList.remove("active");
     title.textContent = "WELCOME BACK HERO";
@@ -427,6 +429,7 @@ function switchTab(tabName) {
   } else {
     signupForm.style.display = "block";
     signinForm.style.display = "none";
+    guestContainer.style.display = "none"; // ADD THIS LINE to hide the guest button
     signinTab.classList.remove("active");
     signupTab.classList.add("active");
 
@@ -436,4 +439,21 @@ function switchTab(tabName) {
   }
 
   createPowerBurst(event.target);
+}
+
+// Handle Guest Login
+function handleGuestLogin(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  showMessage("ZAP! Entering as a guest!", "success");
+  createPowerBurst(event.target);
+
+  // Make the guest login request
+  showLoading(true);
+
+  // Redirect to the Django guest login URL
+  setTimeout(() => {
+    window.location.href = "/guest/";
+  }, 1500);
 }

@@ -66,7 +66,6 @@
       </div>
     </div>
     <!-- Sign Up Form -->
-    <!-- Sign Up Form -->
     <div class="form-container" id="signupForm" style="display: none">
       <form method="POST" action="{% url 'register' %}">
         {% csrf_token %}
@@ -128,6 +127,13 @@
           <i class="fas fa-rocket"></i> BECOME A HERO!
         </button>
       </form>
+    </div>
+    <!-- Guest Login Button -->
+    <div class="guest-login-container">
+      <div class="or-separator"><span>OR</span></div>
+      <button type="button" class="guest-btn" onclick="handleGuestLogin(event)">
+        <i class="fas fa-user-secret"></i> Continue as a Guest
+      </button>
     </div>
   </div>
 </div>
