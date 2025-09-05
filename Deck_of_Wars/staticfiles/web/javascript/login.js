@@ -23,13 +23,14 @@ function switchTab(tabName) {
 }
 
 // Handle sign in
+// Handle sign in with specific error messages
 function handleSignIn(event) {
   event.preventDefault();
 
-  const email = document.getElementById("signinEmail").value;
+  const username = document.getElementById("signinEmail").value;
   const password = document.getElementById("signinPassword").value;
 
-  if (!email || !password) {
+  if (!username || !password) {
     showMessage("All fields are required, hero!", "error");
     return;
   }
@@ -40,18 +41,45 @@ function handleSignIn(event) {
   setTimeout(() => {
     showLoading(false);
 
-    // Mock validation
-    if (email === "hero@test.com" && password === "password") {
+    // Define valid credentials for testing
+    const validCredentials = {
+      "hero@test.com": "password123",
+      admin: "admin123",
+      player1: "game123",
+    };
+
+    const isValidUsername = validCredentials.hasOwnProperty(username);
+    const isValidPassword =
+      isValidUsername && validCredentials[username] === password;
+
+    // Determine specific error message
+    if (!isValidUsername && !isValidPassword) {
+      showMessage("Wrong Username and Password!", "error");
+      shakeInputs(["signinEmail", "signinPassword"]);
+      shakeForm();
+    } else if (!isValidUsername) {
+      showMessage("Wrong Username!", "error");
+      shakeInputs(["signinEmail"]);
+      // Highlight the username field
+      document.getElementById("signinEmail").style.borderColor = "#FF0000";
+      document.getElementById("signinEmail").style.backgroundColor = "#FFE4E4";
+    } else if (!isValidPassword) {
+      showMessage("Wrong Password!", "error");
+      shakeInputs(["signinPassword"]);
+      // Highlight the password field
+      document.getElementById("signinPassword").style.borderColor = "#FF0000";
+      document.getElementById("signinPassword").style.backgroundColor =
+        "#FFE4E4";
+    } else {
+      // Success case
       showMessage("KABOOM! Sign in successful!", "success");
       createMultipleBursts();
 
       // Redirect after success animation
       setTimeout(() => {
-        window.location.href = "/home/"; // Redirect to main game
+        // In real implementation, this would submit the form
+        event.target.closest("form").submit();
       }, 2000);
-    } else {
-      showMessage("Invalid credentials! Try again, hero!", "error");
-      shakeForm();
     }
   }, 1500);
 }
@@ -85,6 +113,14 @@ function handleSignUp(event) {
     showMessage("Passwords don't match! Check your powers!", "error");
     shakeInputs(["signupPassword", "confirmPassword"]);
     return;
+
+    // For production - replace the mock validation with:
+    if (isValidUsername && isValidPassword) {
+      // Submit the actual form to Django
+      event.target.closest("form").submit();
+    } else {
+      // Handle errors as shown above
+    }
   }
 
   showLoading(true);
@@ -124,7 +160,11 @@ function showMessage(text, type) {
   messageArea.innerHTML = "";
   messageArea.appendChild(message);
 
-  // Auto remove after 5 seconds
+  // Add screen shake for errors
+  if (type === "error") {
+    shakeScreen();
+  }
+
   setTimeout(() => {
     if (message.parentNode) {
       message.remove();
@@ -152,7 +192,9 @@ function createPowerBurst(element) {
   burst.style.top = rect.top + rect.height / 2 - 50 + "px";
   document.body.appendChild(burst);
 
-  setTimeout(() => burst.remove(), 1000);
+  setTimeout(() => {
+    if (burst.parentNode) burst.remove();
+  }, 1000);
 }
 
 // Create multiple power bursts
@@ -169,9 +211,65 @@ function createMultipleBursts() {
       container.appendChild(burst);
 
       setTimeout(() => burst.remove(), 1000);
-    }, i * 200);
+    }, i * 150);
   }
 }
+
+// Add enhanced button interactions
+function addButtonEnhancements() {
+  // Enhance tab buttons
+  document.querySelectorAll(".tab-button").forEach((btn) => {
+    btn.addEventListener("mouseenter", function () {
+      if (!this.classList.contains("active")) {
+        this.style.filter = "brightness(1.1)";
+      }
+    });
+
+    btn.addEventListener("mouseleave", function () {
+      this.style.filter = "brightness(1)";
+    });
+  });
+
+  // Enhance form inputs
+  document.querySelectorAll(".form-input").forEach((input) => {
+    input.addEventListener("mouseenter", function () {
+      this.style.filter = "brightness(1.02)";
+    });
+
+    input.addEventListener("mouseleave", function () {
+      this.style.filter = "brightness(1)";
+    });
+  });
+
+  // Enhance submit and guest buttons
+  document.querySelectorAll(".submit-btn, .guest-btn").forEach((btn) => {
+    btn.addEventListener("mouseenter", function () {
+      this.style.filter = "brightness(1.05)";
+    });
+
+    btn.addEventListener("mouseleave", function () {
+      this.style.filter = "brightness(1)";
+    });
+  });
+}
+
+// Call the enhancement function
+addButtonEnhancements();
+
+// Clear error styling when user starts typing
+document.getElementById("signinEmail").addEventListener("input", function () {
+  this.style.borderColor = "#000";
+  this.style.backgroundColor = "";
+  clearMessages();
+});
+
+document
+  .getElementById("signinPassword")
+  .addEventListener("input", function () {
+    this.style.borderColor = "#000";
+    this.style.backgroundColor = "";
+    clearMessages();
+  });
 
 // Shake form on error
 function shakeForm() {
@@ -182,7 +280,7 @@ function shakeForm() {
 
   setTimeout(() => {
     container.style.animation = "containerFloat 4s ease-in-out infinite";
-  }, 600);
+  }, 400);
 }
 
 // Shake specific inputs
@@ -192,7 +290,7 @@ function shakeInputs(inputIds) {
     input.style.animation = "inputShake 0.5s ease-in-out";
     setTimeout(() => {
       input.style.animation = "";
-    }, 500);
+    }, 300);
   });
 }
 
@@ -289,31 +387,6 @@ function shakeScreen() {
   screenShake();
 }
 
-// Enhanced error handling with screen shake
-function showMessage(text, type) {
-  const messageArea = document.getElementById("messageArea");
-  const message = document.createElement("div");
-  message.className = `message ${type}`;
-  message.innerHTML = `<i class="fas fa-${
-    type === "success" ? "check-circle" : "exclamation-triangle"
-  }"></i> ${text}`;
-
-  messageArea.innerHTML = "";
-  messageArea.appendChild(message);
-
-  // Add screen shake for errors
-  if (type === "error") {
-    shakeScreen();
-  }
-
-  // Auto remove after 5 seconds
-  setTimeout(() => {
-    if (message.parentNode) {
-      message.remove();
-    }
-  }, 5000);
-}
-
 // Add keyboard shortcuts for better UX
 document.addEventListener("keydown", function (e) {
   // Enter key to submit forms
@@ -354,12 +427,6 @@ window.addEventListener("load", function () {
   }, 1000);
 });
 
-// Form validation with comic feedback
-function validateEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-}
-
 function validatePassword(password) {
   return password.length >= 6;
 }
@@ -368,14 +435,18 @@ function validateUsername(username) {
   return username.length >= 3 && /^[a-zA-Z0-9\s]+$/.test(username);
 }
 
-// Real-time validation feedback
-document.getElementById("signupEmail").addEventListener("blur", function () {
-  if (!validateEmail(this.value) && this.value) {
-    this.style.borderColor = "#FF0000";
-    this.style.backgroundColor = "#FFE4E4";
-    showMessage("Please enter a valid email address!", "error");
-  }
-});
+// Debounce function for better performance
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
 
 document
   .getElementById("signupPassword")
@@ -410,14 +481,13 @@ function switchTab(tabName) {
   const signinTab = document.getElementById("signinTab");
   const signupTab = document.getElementById("signupTab");
   const title = document.querySelector(".auth-title");
-  const guestContainer = document.querySelector(".guest-login-container"); // ADD THIS LINE to get the guest login container
-
+  const guestContainer = document.querySelector(".guest-login-container");
   clearMessages();
 
   if (tabName === "signin") {
     signinForm.style.display = "block";
     signupForm.style.display = "none";
-    guestContainer.style.display = "block"; // ADD THIS LINE to show the guest button
+    guestContainer.style.display = "block";
     signinTab.classList.add("active");
     signupTab.classList.remove("active");
     title.textContent = " ";
@@ -425,11 +495,11 @@ function switchTab(tabName) {
 
     setTimeout(() => {
       document.getElementById("signinEmail").focus();
-    }, 300);
+    }, 200);
   } else {
     signupForm.style.display = "block";
     signinForm.style.display = "none";
-    guestContainer.style.display = "none"; // ADD THIS LINE to hide the guest button
+    guestContainer.style.display = "none";
     signinTab.classList.remove("active");
     signupTab.classList.add("active");
 
@@ -449,7 +519,6 @@ function handleGuestLogin(event) {
   showMessage("ZAP! Entering as a guest!", "success");
   createPowerBurst(event.target);
 
-  // Make the guest login request
   showLoading(true);
 
   // Redirect to the Django guest login URL
@@ -457,3 +526,28 @@ function handleGuestLogin(event) {
     window.location.href = "/guest/";
   }, 1500);
 }
+
+// Real-time username availability check
+document.getElementById("signupUsername").addEventListener("blur", function () {
+  const username = this.value;
+  if (username.length >= 3) {
+    // Simulate checking if username exists
+    // In production, you'd make an AJAX call to your Django backend
+    const existingUsernames = [
+      "admin",
+      "player1",
+      "hero@test.com",
+      "testuser",
+      "superman",
+    ];
+
+    if (existingUsernames.includes(username.toLowerCase())) {
+      this.style.borderColor = "#FF0000";
+      this.style.backgroundColor = "#FFE4E4";
+      showMessage(`Username "${username}" is already taken!`, "error");
+    } else {
+      this.style.borderColor = "#32CD32";
+      this.style.backgroundColor = "#F0FFF0";
+    }
+  }
+});

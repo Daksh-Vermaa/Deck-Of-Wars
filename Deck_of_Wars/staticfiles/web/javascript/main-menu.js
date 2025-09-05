@@ -85,9 +85,30 @@ document.addEventListener("DOMContentLoaded", function () {
     // Remove alert after 3 seconds
     setTimeout(() => {
       alert.style.animation = "slideOut 0.5s ease-in";
-      setTimeout(() => alert.remove(), 500);
+      setTimeout(() => {
+        if (alert.parentNode) alert.remove();
+      }, 500);
     }, 3000);
   }
+
+  // Add tactile feedback to all buttons
+  document.querySelectorAll(".comic-button").forEach((button) => {
+    button.addEventListener("mouseenter", function () {
+      this.style.filter = "brightness(1.1)";
+    });
+
+    button.addEventListener("mouseleave", function () {
+      this.style.filter = "brightness(1)";
+    });
+
+    button.addEventListener("mousedown", function () {
+      this.style.filter = "brightness(0.9)";
+    });
+
+    button.addEventListener("mouseup", function () {
+      this.style.filter = "brightness(1.1)";
+    });
+  });
 
   // Add slide animations
   const style = document.createElement("style");

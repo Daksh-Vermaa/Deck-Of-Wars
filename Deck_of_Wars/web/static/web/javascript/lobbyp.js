@@ -11,7 +11,7 @@ document.querySelectorAll(".panel-box:not(.box-4)").forEach((panel) => {
     this.classList.add("shake");
     setTimeout(() => {
       this.classList.remove("shake");
-    }, 600);
+    }, 400);
   });
 });
 
@@ -101,6 +101,52 @@ function hideComingSoonPopup() {
   attachPlayerSelectionListeners();
 }
 
+// Add enhanced button interactions
+function addButtonEnhancements() {
+  // Enhance panel boxes
+  document.querySelectorAll(".panel-box").forEach((panel) => {
+    panel.addEventListener("mouseenter", function () {
+      if (!this.classList.contains("box-4")) {
+        this.style.filter =
+          "drop-shadow(15px 15px 10px rgba(0, 0, 0, 1)) brightness(1.15)";
+      }
+    });
+
+    panel.addEventListener("mouseleave", function () {
+      if (!this.classList.contains("box-4")) {
+        this.style.filter = "";
+      }
+    });
+  });
+
+  // Enhance popup buttons
+  document.querySelectorAll(".popup-btn").forEach((btn) => {
+    btn.addEventListener("mouseenter", function () {
+      this.style.filter = "brightness(1.1)";
+    });
+
+    btn.addEventListener("mouseleave", function () {
+      this.style.filter = "brightness(1)";
+    });
+  });
+
+  // Enhance player buttons
+  document.querySelectorAll(".player-btn").forEach((btn) => {
+    btn.addEventListener("mouseenter", function () {
+      if (!this.classList.contains("selected")) {
+        this.style.filter = "brightness(1.1)";
+      }
+    });
+
+    btn.addEventListener("mouseleave", function () {
+      this.style.filter = "brightness(1)";
+    });
+  });
+}
+
+// Call the enhancement function
+addButtonEnhancements();
+
 function attachPlayerSelectionListeners() {
   // Player selection handlers
   document.querySelectorAll(".player-btn").forEach((btn) => {
@@ -112,19 +158,22 @@ function attachPlayerSelectionListeners() {
       selectedPlayers = parseInt(this.dataset.players);
     });
   });
+  // Re-enhance buttons after content reload
+  addButtonEnhancements();
 
   // Start game button
   document
     .getElementById("startGameBtn")
     .addEventListener("click", function () {
       if (selectedMode && selectedPlayers) {
-        this.style.transform = "scale(0.95)";
+        this.style.transform = "scale(0.98) translateY(1px)";
+        this.style.boxShadow = "4px 4px 0px #000";
         setTimeout(() => {
           this.style.transform = "";
-          // Submit the form data
+          this.style.boxShadow = "";
           submitGameForm();
           hidePlayerSelection();
-        }, 150);
+        }, 120);
       }
     });
 
@@ -161,6 +210,11 @@ function showPlayerSelection() {
   // Show popup with animations
   overlay.classList.add("show");
   mainContainer.classList.add("blurred");
+
+  // Add smooth entrance
+  setTimeout(() => {
+    panel.style.transform = "scale(1) rotateX(0deg)";
+  }, 10);
 
   // Add entrance sound effect simulation
   playComicEffect();

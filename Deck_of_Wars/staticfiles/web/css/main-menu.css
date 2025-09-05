@@ -144,7 +144,7 @@ body::after {
   position: relative;
   text-transform: uppercase;
   letter-spacing: 3px;
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 8px 8px 0px #000, 12px 12px 20px rgba(0, 0, 0, 0.5);
   border-radius: 12px;
   transform: perspective(500px) rotateX(5deg);
@@ -186,8 +186,8 @@ body::after {
 }
 
 .comic-button:hover {
-  transform: perspective(500px) rotateX(5deg) scale(1.1) translateY(-5px);
-  box-shadow: 12px 12px 0px #000, 16px 16px 30px rgba(0, 0, 0, 0.7);
+  transform: perspective(500px) rotateX(5deg) scale(1.05) translateY(-3px);
+  box-shadow: 10px 10px 0px #000, 14px 14px 25px rgba(0, 0, 0, 0.6);
   animation: buttonBounce 0.6s ease infinite alternate;
   text-decoration: none !important;
   color: #000 !important;
@@ -200,18 +200,26 @@ body::after {
   outline-offset: 2px;
 }
 
+.comic-button:focus-visible {
+  transform: perspective(500px) rotateX(5deg) scale(1.05) translateY(-3px);
+  box-shadow: 10px 10px 0px #000, 14px 14px 25px rgba(0, 100, 255, 0.4);
+  outline: 2px solid #00ff00;
+  outline-offset: 3px;
+}
+
 @keyframes buttonBounce {
   0% {
-    transform: perspective(500px) rotateX(5deg) scale(1.1) translateY(-5px);
+    transform: perspective(500px) rotateX(5deg) scale(1.05) translateY(-3px);
   }
   100% {
-    transform: perspective(500px) rotateX(5deg) scale(1.15) translateY(-8px);
+    transform: perspective(500px) rotateX(5deg) scale(1.07) translateY(-5px);
   }
 }
 
 .comic-button:active {
-  transform: perspective(500px) rotateX(5deg) scale(0.95);
-  box-shadow: 4px 4px 0px #000, 8px 8px 15px rgba(0, 0, 0, 0.5);
+  transform: perspective(500px) rotateX(5deg) scale(0.98) translateY(1px);
+  box-shadow: 6px 6px 0px #000, 8px 8px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.1s ease;
 }
 
 /* Button specific colors */
@@ -270,8 +278,9 @@ body::after {
 }
 
 .btn-logout:hover {
-  transform: translateY(-2px);
-  box-shadow: 6px 6px 0px #000;
+  transform: perspective(500px) rotateX(5deg) scale(1.05) translateY(-3px);
+  box-shadow: 8px 8px 0px #000, 10px 10px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Rules panel */

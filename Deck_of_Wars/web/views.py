@@ -20,7 +20,6 @@ def main_menu(request):
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
-        email = request.POST['email']
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
 
@@ -28,12 +27,8 @@ def register(request):
             messages.error(request, "Passwords do not match")
         elif User.objects.filter(username=username).exists():
             messages.error(request, f'{username} already exists')
-        elif User.objects.filter(email=email).exists():
-            messages.error(request, f'{email} already exists')
         else:
-            user = User.objects.create_user(username=username,
-                                           email=email,
-                                           password=password)
+            user = User.objects.create_user(username=username, password=password)
             user.save()
             messages.success(request, f'Signup completed. You can login now')
             return redirect('login')
@@ -53,7 +48,7 @@ def login_view(request):
             auth_login(request , user)
             return redirect('Menu')
         else:
-            messages.error(request, '')
+            messages.error(request, 'Invalid username or password!')
     
     return render(request , 'web/login.html' ,
                    {'title' : 'login'}
