@@ -1,15 +1,60 @@
-{% extends 'web/base.html' %} 
-{% block content %} 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+{% extends 'web/base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'web/css/lobbys.css' %}" />
+{% endblock %} {% block content %} {% csrf_token %}
+<!-- Messages Display -->
+{% if messages %} {% for message in messages %}
+<div class="alert alert-info">{{ message }}</div>
+{% endfor %} {% endif %}
 
-    <h1>Enter Code</h1>
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" name="passcode" placeholder="Enter your code" required>
-        <button type="submit">Submit</button>
-    </form>
-{% endblock content %}
+<div class="main-container">
+  <div class="join-panel">
+    <h1 class="panel-title">JOIN TEAM!</h1>
+    <p class="panel-subtitle">
+      Enter the secret 6-character code to join the battle!
+    </p>
+
+    <div class="status-indicator" id="statusIndicator"></div>
+
+    <div class="code-input-section">
+      <label class="input-label" for="gameCode">
+        <i class="fas fa-key"></i> Team Code
+      </label>
+      <div class="code-input-container">
+        <input
+          type="text"
+          id="gameCode"
+          class="code-input"
+          placeholder="ENTER CODE"
+          maxlength="6"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="quick-actions">
+        <button class="quick-btn paste-btn" id="pasteBtn">
+          <i class="fas fa-paste"></i> Paste
+        </button>
+        <button class="quick-btn clear-btn" id="clearBtn">
+          <i class="fas fa-eraser"></i> Clear
+        </button>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn join-btn" id="joinBtn" disabled>
+        <i class="fas fa-sign-in-alt"></i> Join Battle
+      </button>
+      <button class="action-btn back-btn" id="backBtn">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+    </div>
+
+    <div class="info-text">
+      <i class="fas fa-info-circle"></i> Codes are 6 characters long
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block extra_js %}
+<script src="{% static 'web/javascript/lobbys.js' %}"></script>
+{% endblock %}
