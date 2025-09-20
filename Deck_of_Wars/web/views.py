@@ -7,8 +7,16 @@ from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
 from .models import GameSession , Player
 from .forms import GameSetup
+from django.http import JsonResponse
 import secrets
 import json
+
+@login_required
+def check_user_type(request):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        is_guest = request.user.username.startswith('guest_')
+        return JsonResponse({'is_guest': is_guest})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 @login_required
 def main_menu(request):
@@ -164,3 +172,5 @@ def player_card(request):
         messages.error(request , f'No player identified')
         return redirect('Menu')
 
+def profile(request):
+    return render(request, 'web/profile.html')

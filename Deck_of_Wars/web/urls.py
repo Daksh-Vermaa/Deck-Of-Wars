@@ -12,6 +12,7 @@ urlpatterns = [
     path('guest/', views.guest_login, name='guest_login'),
     path('register/' ,  views.register , name='register'),
     path('loading/' , views.loading_page , name='Loading_Page'),
-    path('profile/' , views.player_card , name='Profile'),
     path('login/', views.login_view, name='login'),
+    path('profile/', views.profile, name='profile'),
+    path('check-user-type/', views.check_user_type, name='check_user_type'),
 ]

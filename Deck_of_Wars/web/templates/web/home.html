@@ -9,7 +9,19 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-{% endfor %} {% endif %} {% if user.is_authenticated %}
+{% endfor %} {% endif %}
+
+<!-- Profile Icon (only for authenticated users) -->
+{% if user.is_authenticated %}
+<div class="profile-icon" id="profileIcon">
+  <div class="profile-avatar">
+    <i class="fas fa-user-ninja"></i>
+  </div>
+  <div class="profile-text">Profile</div>
+</div>
+{% endif %}
+
+{% if user.is_authenticated %}
 <!-- Authenticated User Section -->
 <div class="container-fluid game-container">
   <div class="row justify-content-center">
@@ -46,7 +58,7 @@
         <form action="{% url 'logout' %}" method="post" class="d-inline">
           {% csrf_token %}
           <button type="submit" class="btn-logout">
-            <i class="fas fa-sign-out-alt me-2"></i> Log Out
+            <i class="fas fa-sign-out-alt"></i> Log Out
           </button>
         </form>
       </div>
@@ -103,7 +115,7 @@
     <p>
       <ul>
         <li>Each deck contains 40 cards → 35 Normal Cards, 5 Power Cards</li>
-        <li>  The game supports 2 to 4 players</li>
+        <li>The game supports 2 to 4 players</li>
         <li>Each player is dealt 10 cards at the start of the game</li>
         <li>These may include Power Cards (distribution is random and based on luck)</li>
       </ul>
@@ -136,7 +148,6 @@
         The highest result wins <br>
         In case of a draw → both cards go to the dump pile</li>
 
-
     <h3>Power Cards</h3>
     <ul>
       <li>Power Cards have the highest priority when played</li>
@@ -153,7 +164,7 @@
 
     <h3>Draw Rules</h3>
     <ul>
-      <li> If two players tie for a winning stat → each takes 1 card from the other</li>
+      <li>If two players tie for a winning stat → each takes 1 card from the other</li>
       <li>If three or four players tie → the tied cards are shuffled back, and the round is replayed</li>
     </ul>
 
@@ -170,7 +181,7 @@
 <div class="achievement-panel" id="achievementsPanel" style="display: none">
 <div class="cross-btn" onclick="closeAchievements()"> <img src="{% static 'web/assets/cross.png' %}" alt="Close"></div>
 <!-- <h2>ACHIEVEMENTS</h2> -->
-  </div>
+</div>
 
 <!-- Backdrop for Rules panel -->
 <div

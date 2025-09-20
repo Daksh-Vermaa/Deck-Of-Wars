@@ -555,3 +555,104 @@ body::after {
     margin-bottom: 15px;
   }
 }
+
+/* Profile Icon */
+.profile-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: top center;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #ffffff, #dad6d6);
+  border: 4px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #000;
+  box-shadow: 4px 4px 0px #000, 6px 6px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-avatar::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 5px,
+    rgba(255, 255, 255, 0.2) 5px,
+    rgba(255, 255, 255, 0.2) 10px
+  );
+  animation: profileShine 2s linear infinite;
+}
+
+@keyframes profileShine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.profile-text {
+  font-family: "Bangers", cursive;
+  font-size: 1.4rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.4s ease;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.profile-icon:hover .profile-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.profile-icon:hover .profile-avatar {
+  transform: scale(1.1);
+  box-shadow: 6px 6px 0px #000, 8px 8px 15px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(45deg, #5398ff, #e95656);
+}
+
+.profile-icon:active .profile-avatar {
+  transform: scale(1.05);
+  box-shadow: 3px 3px 0px #000, 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive profile icon */
+@media (max-width: 768px) {
+  .profile-icon {
+    top: 15px;
+    right: 15px;
+  }
+
+  .profile-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .profile-text {
+    font-size: 1rem;
+    padding: 6px 10px;
+  }
+}

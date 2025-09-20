@@ -1,12 +1,334 @@
-{% extends 'web/base.html' %} 
-{% block title %}Register{% endblock %}
-{% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+{% extends 'web/base.html' %} {% load static %} {% block extra_css %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="{% static 'web/css/profile.css' %}" />
+{% endblock %} {% block content %}
+<!-- Messages Display -->
+{% if messages %} {% for message in messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %} {% endif %}
 
-    {{ profile.Name.username }}
+<!-- Back to Main Menu Button -->
+<div class="back-button" onclick="goToMainMenu()">
+  <i class="fas fa-arrow-left"></i> Back
+</div>
 
+<div class="container">
+  <div class="profile-container">
+    <div class="tab-navigation">
+      <button
+        class="tab-btn active"
+        onclick="switchTab('profile')"
+        id="profileTab"
+      >
+        <i class="fas fa-user-circle"></i> Profile
+      </button>
+      <button class="tab-btn" onclick="switchTab('personal')" id="personalTab">
+        <i class="fas fa-user"></i> Personal Info
+      </button>
+      <button class="tab-btn" onclick="switchTab('security')" id="securityTab">
+        <i class="fas fa-shield-alt"></i> Security
+      </button>
+    </div>
+
+    <!-- New Profile Tab Content with profile picture, name, and stats -->
+    <div class="tab-content active" id="profileContent">
+      <!-- Profile Picture Section -->
+      <div class="profile-picture-section">
+        <div class="profile-picture-container">
+          <div class="profile-picture" id="profilePicture">
+            <img
+              src="{% static 'web/assets/default-avatar.png' %}"
+              alt="Default Avatar"
+              class="default-avatar"
+            />
+            <img id="profileImage" style="display: none" />
+          </div>
+          <!-- Moved profile picture controls below the picture -->
+          <div class="picture-controls">
+            <button class="comic-btn upload-btn" onclick="uploadImage()">
+              <i class="fas fa-upload"></i> Upload
+            </button>
+            <button
+              class="comic-btn remove-btn"
+              onclick="removeImage()"
+              id="removeBtn"
+              style="display: none"
+            >
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- Player Name and Rank -->
+        <div class="player-info">
+          <h2 class="player-name" id="playerName">Captain Thunder</h2>
+          <!-- Updated rank styling to match stamp-style from index2.html -->
+          <div class="player-rank">
+            <i class="fas fa-star"></i>
+            <span class="rank-value" id="playerRank">NOOB</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced stats section with 2x2 layout, removed click functionality -->
+      <div class="stats-section">
+        <h3 class="section-title">
+          <i class="fas fa-chart-bar"></i> BATTLE STATISTICS
+        </h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="matchesPlayed">0</div>
+              <div class="stat-label">Matches Played</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="matchesWon">0</div>
+              <div class="stat-label">Matches Won</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-fire"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="winningStreak">0</div>
+              <div class="stat-label">Winning Streak</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-medal"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="achievements">0</div>
+              <div class="stat-label">Achievements</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Info Tab Content -->
+    <div class="tab-content" id="personalContent">
+      <!-- Personal Details Section -->
+      <div class="personal-details-section">
+        <h3 class="section-title">
+          <i class="fas fa-user"></i> PERSONAL DETAILS
+        </h3>
+        <div class="details-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">
+                <i class="fas fa-user"></i> First Name
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-input"
+                placeholder="Enter your first name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lastName">
+                <i class="fas fa-user"></i> Last Name
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-input"
+                placeholder="Enter your last name"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="birthDate">
+                <i class="fas fa-calendar"></i> Birth Date
+              </label>
+              <input type="date" id="birthDate" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="location">
+                <i class="fas fa-map-marker-alt"></i> Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                class="form-input"
+                placeholder="Your city, country"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bio"> <i class="fas fa-pen"></i> Hero Bio </label>
+            <textarea
+              id="bio"
+              class="form-textarea"
+              placeholder="Tell us about your superhero story..."
+            ></textarea>
+          </div>
+          <button class="comic-btn save-btn" onclick="savePersonalDetails()">
+            <i class="fas fa-save"></i> Save Details
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Tab Content -->
+    <div class="tab-content" id="securityContent">
+      <!-- Security Section -->
+      <div class="security-section">
+        <h3 class="section-title">
+          <i class="fas fa-shield-alt"></i> SECURITY SETTINGS
+        </h3>
+        <div class="security-form">
+          <div class="form-group">
+            <label for="email">
+              <i class="fas fa-envelope"></i> Email (Optional)
+            </label>
+            <input
+              type="email"
+              id="email"
+              class="form-input"
+              placeholder="hero@powerclash.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="newUsername">
+              <i class="fas fa-user-edit"></i> Change Username
+            </label>
+            <div class="username-container">
+              <input
+                type="text"
+                id="newUsername"
+                class="form-input"
+                placeholder="Enter new username"
+              />
+              <div class="username-status" id="usernameStatus"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="currentPassword">
+              <i class="fas fa-lock"></i> Current Password
+            </label>
+            <input
+              type="password"
+              id="currentPassword"
+              class="form-input"
+              placeholder="Enter current password"
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newPassword">
+                <i class="fas fa-key"></i> New Password
+              </label>
+              <input
+                type="password"
+                id="newPassword"
+                class="form-input"
+                placeholder="Enter new password"
+              />
+            </div>
+            <div class="form-group">
+              <label for="confirmNewPassword">
+                <i class="fas fa-shield-alt"></i> Confirm New Password
+              </label>
+              <input
+                type="password"
+                id="confirmNewPassword"
+                class="form-input"
+                placeholder="Confirm new password"
+              />
+            </div>
+          </div>
+
+          <div class="security-buttons">
+            <!-- Combined all three security update functions into one button -->
+            <button class="comic-btn save-btn" onclick="updateAllSecurity()">
+              <i class="fas fa-shield-alt"></i> Update Security
+            </button>
+            <!-- Added forgot password option -->
+            <button class="comic-btn forgot-btn" onclick="forgotPassword()">
+              <i class="fas fa-question-circle"></i> Forgot Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Updated crop modal to match ui.png comic style with yellow borders -->
+<div class="crop-modal" id="cropModal" style="display: none">
+  <div class="crop-container">
+    <div class="crop-header">
+      <h3>CROP YOUR HERO AVATAR</h3>
+      <button class="close-crop" onclick="cancelCrop()">&times;</button>
+    </div>
+    <div class="crop-area">
+      <img id="imageToCrop" src="/placeholder.svg" />
+    </div>
+    <div class="crop-controls">
+      <button class="comic-btn apply-btn" onclick="applyCrop()">
+        <i class="fas fa-check"></i> APPLY CROP
+      </button>
+      <button class="comic-btn cancel-btn" onclick="cancelCrop()">
+        <i class="fas fa-times"></i> CANCEL
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div
+  class="modal-backdrop"
+  id="modalBackdrop"
+  style="display: none"
+  onclick="cancelCrop()"
+></div>
+
+<!-- Added confirmation modal for profile picture deletion -->
+<div class="confirmation-modal" id="confirmationModal" style="display: none">
+  <div class="confirmation-container">
+    <div class="confirmation-header">
+      <h3>REMOVE PROFILE PICTURE?</h3>
+    </div>
+    <div class="confirmation-content">
+      <p>This will reset your profile picture to the default.</p>
+    </div>
+    <div class="confirmation-controls">
+      <button class="comic-btn cancel-btn" onclick="closeConfirmation()">
+        <i class="fas fa-times"></i> Cancel
+      </button>
+      <button class="comic-btn remove-btn" onclick="confirmRemoveImage()">
+        <i class="fas fa-check"></i> Confirm
+      </button>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block extra_js %}
+<input type="file" id="imageInput" accept="image/*" style="display: none" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="{% static 'web/javascript/profile.js' %}"></script>
 {% endblock %}

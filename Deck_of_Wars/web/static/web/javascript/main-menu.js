@@ -156,4 +156,36 @@ document.addEventListener("DOMContentLoaded", function () {
       window.closeAchievements();
     }
   });
+  // Profile icon click handler
+  const profileIcon = document.getElementById("profileIcon");
+  if (profileIcon) {
+    profileIcon.addEventListener("click", function () {
+      // Make an AJAX call to check if user is guest
+      fetch("/check-user-type/", {
+        method: "GET",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.is_guest) {
+            showComicAlert("Create a profile first, hero!", "#FF6B6B");
+            setTimeout(() => {
+              window.location.href = "/login/";
+            }, 2000);
+          } else {
+            showComicAlert("Opening hero profile...", "#4ECDC4");
+            setTimeout(() => {
+              window.location.href = "/profile/";
+            }, 500);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          // Default to profile page
+          window.location.href = "/profile/";
+        });
+    });
+  }
 });
